@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}{{ company.name }} | StudCareer{% endblock %}
+{% block content %}
+<div class="max-w-4xl mx-auto py-12 px-4">
+    <div class="bg-white shadow-lg rounded-2xl p-8 border border-gray-100">
+        <div class="flex justify-between items-start mb-6">
+            <div>
+                <h1 class="text-4xl font-bold text-gray-900">{{ company.name|default:"Название не указано" }}</h1>
+                <p class="text-xl text-gray-600 mt-2">{{ company.industry }}</p>
+            </div>
+            <span class="px-4 py-1 text-sm font-semibold rounded-full 
+                {% if company.verification_status == 'verified' %}bg-green-100 text-green-800
+                {% elif company.verification_status == 'rejected' %}bg-red-100 text-red-800
+                {% else %}bg-yellow-100 text-yellow-800{% endif %}">
+                {{ company.get_verification_status_display }}
+            </span>
+        </div>
+        
+        <div class="mt-8">
+            <h2 class="text-2xl font-semibold mb-4 text-gray-800">О компании</h2>
+            <p class="text-gray-700 leading-relaxed whitespace-pre-line">{{ company.description }}</p>
+        </div>
+
+        {% if company.website %}
+        <div class="mt-6">
+            <a href="{{ company.website }}" target="_blank" class="text-indigo-600 hover:underline font-medium">Перейти на сайт</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

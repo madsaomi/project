@@ -1,0 +1,40 @@
+<div class="p-8 font-serif text-gray-900 bg-white">
+    <div class="border-b-2 border-gray-800 pb-4 mb-6">
+        <h1 class="text-4xl font-bold">{{ profile.full_name|default:"Имя Фамилия" }}</h1>
+        <p class="text-xl text-gray-600 mt-2">{{ profile.headline|default:"Желаемая должность" }}</p>
+        <p class="text-sm mt-2 text-gray-500">
+            {% if profile.phone %}Телефон: {{ profile.phone }} | {% endif %}
+            Email: {{ profile.user.email }}
+        </p>
+    </div>
+
+    {% if profile.about %}
+    <div class="mb-6">
+        <h2 class="text-2xl font-semibold mb-2 uppercase text-gray-800 tracking-wider">О себе</h2>
+        <p class="text-gray-700 leading-relaxed">{{ profile.about }}</p>
+    </div>
+    {% endif %}
+
+    {% if profile.institution %}
+    <div class="mb-6">
+        <h2 class="text-2xl font-semibold mb-2 uppercase text-gray-800 tracking-wider">Образование</h2>
+        <div>
+            <h3 class="text-lg font-bold">{{ profile.institution }}</h3>
+            <p class="text-gray-600">{{ profile.specialty }}</p>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if profile.internship_experiences.exists %}
+    <div class="mb-6">
+        <h2 class="text-2xl font-semibold mb-2 uppercase text-gray-800 tracking-wider">Опыт (Стажировки)</h2>
+        {% for exp in profile.internship_experiences.all %}
+        <div class="mb-4">
+            <h3 class="text-lg font-bold">{{ exp.position }} @ {{ exp.company_name }}</h3>
+            <p class="text-sm text-gray-500">{{ exp.start_date }} - {{ exp.end_date }}</p>
+            <p class="text-gray-700 mt-1">{{ exp.description }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>

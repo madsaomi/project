@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ internship.title }} | StudCareer{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+        <!-- Header -->
+        <div class="p-8 sm:p-10 border-b border-gray-100">
+            <div class="flex flex-col sm:flex-row gap-6 items-start">
+                <div class="flex-shrink-0 w-24 h-24 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-center overflow-hidden">
+                    {% if internship.company.logo %}
+                        <img src="{{ internship.company.logo.url }}" alt="{{ internship.company.name }}" class="w-full h-full object-cover">
+                    {% else %}
+                        <i data-lucide="building-2" class="w-12 h-12 text-gray-400"></i>
+                    {% endif %}
+                </div>
+                <div class="flex-grow">
+                    <h1 class="text-3xl font-bold text-gray-900">{{ internship.title }}</h1>
+                    <div class="mt-2 flex items-center gap-2">
+                        <a href="#" class="text-lg font-medium text-indigo-600 hover:text-indigo-700 transition">{{ internship.company.name }}</a>
+                        {% if internship.company.verification_status == 'verified' %}
+                            <i data-lucide="badge-check" class="w-5 h-5 text-blue-500" title="Верифицирована"></i>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mt-4 flex flex-wrap gap-3">
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-800">
+                            <i data-lucide="briefcase" class="w-4 h-4 text-gray-500"></i>
+                            {{ internship.get_internship_type_display }}
+                        </span>
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-800">
+                            <i data-lucide="map-pin" class="w-4 h-4 text-gray-500"></i>
+                            {{ internship.get_work_format_display }}
+                            {% if internship.location %}({{ internship.location }}){% endif %}
+                        </span>
+                        {% if internship.is_paid %}
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-medium bg-green-50 text-green-700">
+                                <i data-lucide="banknote" class="w-4 h-4 text-green-600"></i>
+                                Оплачиваемая
+                            </span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Body -->
+        <div class="p-8 sm:p-10 space-y-8">
+            <section>
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">Описание стажировки</h2>
+                <div class="prose prose-indigo max-w-none text-gray-600">
+                    {{ internship.description|linebreaks }}
+                </div>
+            </section>
+            
+            {% if internship.requirements %}
+            <section>
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">Требования</h2>
+                <div class="prose prose-indigo max-w-none text-gray-600">
+                    {{ internship.requirements|linebreaks }}
+                </div>
+            </section>
+            {% endif %}
+
+            {% if internship.responsibilities %}
+            <section>
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">Обязанности</h2>
+                <div class="prose prose-indigo max-w-none text-gray-600">
+                    {{ internship.responsibilities|linebreaks }}
+                </div>
+            </section>
+            {% endif %}
+        </div>
+
+        <!-- Footer / CTA -->
+        <div class="bg-gray-50 px-8 py-6 sm:px-10 border-t border-gray-100 flex items-center justify-between">
+            <div class="text-sm text-gray-500">
+                Опубликовано: {{ internship.created_at|date:"d M Y" }}
+            </div>
+            <div id="apply-button-container">
+                {% include 'internships/_apply_btn.html' %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

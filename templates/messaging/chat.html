@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}Чат | StudCareer{% endblock %}
+
+{% block extra_scripts %}
+<meta name="csrf-token" content="{{ csrf_token }}">
+<script>
+  document.body.addEventListener('htmx:configRequest', (e) => {
+    e.detail.headers['X-CSRFToken'] = document.querySelector('meta[name="csrf-token"]').content;
+  });
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8 h-[calc(100vh-4rem)] flex flex-col">
+    <!-- Header -->
+    <div class="bg-white rounded-t-2xl shadow-sm border border-gray-100 p-4 flex items-center gap-4">
+        <a href="{% url 'messaging:list' %}" class="text-gray-400 hover:text-gray-600 transition">
+            <i data-lucide="arrow-left" class="w-5 h-5"></i>
+        </a>
+        <div>
+            <h2 class="text-lg font-semibold text-gray-900">{{ other_party }}</h2>
+        </div>
+    </div>
+    
+    <!-- Messages Feed -->
+    <div class="flex-grow bg-gray-50 border-x border-gray-100 p-6 overflow-y-auto" 
+         id="message-feed"
+         hx-get="{% url 'messaging:detail' conversation.pk %}"
+         hx-trigger="every 5s">
+        {% include 'messaging/_message_feed.html' %}
+    </div>
+    
+    <!-- Input Form -->
+    <div class="bg-white rounded-b-2xl shadow-sm border border-gray-100 p-4">
+        <form hx-post="{% url 'messaging:send' conversation.pk %}"
+              hx-target="#message-feed"
+              hx-swap="innerHTML"
+              hx-on::after-request="this.reset(); document.getElementById('message-feed').scrollTo(0, document.getElementById('message-feed').scrollHeight);"
+              class="flex gap-3">
+            <input type="text" name="content" autocomplete="off" required placeholder="Введите сообщение..." 
+                   class="flex-grow rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm">
+            <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-700 transition flex items-center justify-center">
+                <i data-lucide="send" class="w-4 h-4"></i>
+            </button>
+        </form>
+    </div>
+</div>
+<script>
+    // Scroll to bottom on load
+    const feed = document.getElementById('message-feed');
+    if (feed) {
+        feed.scrollTop = feed.scrollHeight;
+    }
+</script>
+{% endblock %}

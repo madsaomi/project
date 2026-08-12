@@ -1,0 +1,25 @@
+{% if user.is_authenticated %}
+    {% if user.role == 'student' %}
+        {% if applied %}
+            <button disabled class="inline-flex items-center gap-2 px-6 py-3 border border-transparent text-base font-medium rounded-xl text-green-700 bg-green-50 cursor-not-allowed">
+                <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+                Вы откликнулись
+            </button>
+        {% else %}
+            <button 
+                hx-post="{% url 'internships:apply' internship.slug %}"
+                hx-target="#apply-button-container"
+                hx-swap="innerHTML"
+                class="inline-flex items-center gap-2 px-6 py-3 border border-transparent text-base font-medium rounded-xl text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors shadow-sm">
+                <i data-lucide="send" class="w-5 h-5"></i>
+                Откликнуться
+            </button>
+        {% endif %}
+    {% else %}
+        <p class="text-sm text-gray-500">Только студенты могут откликаться на стажировки.</p>
+    {% endif %}
+{% else %}
+    <a href="{% url 'accounts:login' %}?next={{ request.path }}" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-xl text-white bg-indigo-600 hover:bg-indigo-700 transition-colors shadow-sm">
+        Войти для отклика
+    </a>
+{% endif %}
