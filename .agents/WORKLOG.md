@@ -290,7 +290,7 @@ _(нетривиальные архитектурные выборы — зап�
 
 > Весь roadmap закрыт (2026-08-22/23): Фазы 1–5 ✅, дашборды ✅, стажировки CRUD ✅, чаты ✅, уведомления ✅, password-reset ✅, i18n (84 строки uz/en) ✅, полировка безопасности ✅, N+1 аудит ✅, Docker-бандл ✅.
 > Деплой теперь = `docker compose up -d --build` на любом VPS (см. deployment_checklist #0).
-> ⚠️ НЕ ЗАБУДЬ: изменения сессии не закоммичены — git доступен по пути `C:\Program Files\Git\cmd\git.exe`.
+> Git: вся работа закоммичена 2026-08-23 (aae2d13 feat / 92ba9de chore(deploy) / 03b968f docs). Git доступен по пути `C:\Program Files\Git\cmd\git.exe` (не в PATH!).
 
 ---
 
