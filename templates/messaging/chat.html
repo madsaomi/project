@@ -1,15 +1,7 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
-{% block title %}Чат | StudCareer{% endblock %}
-
-{% block extra_scripts %}
-<meta name="csrf-token" content="{{ csrf_token }}">
-<script>
-  document.body.addEventListener('htmx:configRequest', (e) => {
-    e.detail.headers['X-CSRFToken'] = document.querySelector('meta[name="csrf-token"]').content;
-  });
-</script>
-{% endblock %}
+{% block title %}{% translate "Чат" %} | StudCareer{% endblock %}
 
 {% block content %}
 <div class="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8 h-[calc(100vh-4rem)] flex flex-col">
@@ -38,7 +30,7 @@
               hx-swap="innerHTML"
               hx-on::after-request="this.reset(); document.getElementById('message-feed').scrollTo(0, document.getElementById('message-feed').scrollHeight);"
               class="flex gap-3">
-            <input type="text" name="content" autocomplete="off" required placeholder="Введите сообщение..." 
+            <input type="text" name="content" autocomplete="off" required placeholder="{% translate 'Введите сообщение...' %}"
                    class="flex-grow rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm">
             <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-700 transition flex items-center justify-center">
                 <i data-lucide="send" class="w-4 h-4"></i>

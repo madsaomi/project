@@ -100,13 +100,39 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
-### Запуск Celery (для уведомлений)
+### Запуск Celery
+
+В development-настройках включён `CELERY_TASK_ALWAYS_EAGER` — задачи выполняются
+синхронно в процессе, **Redis не нужен** (email уходит в консоль сервера).
+На проде (production.py) eager отключён — там обязателен запущенный Redis:
 
 ```bash
-# В отдельном терминале (убедитесь что Redis запущен)
 celery -A config worker -l info -P solo    # Windows
 celery -A config worker -l info            # Linux/Mac
 ```
+
+---
+
+## 🐳 Деплой через Docker
+
+```bash
+cp .env.example .env        # заполнить SECRET_KEY, ALLOWED_HOSTS, DB_PASSWORD
+docker compose up -d --build
+docker compose exec web python manage.py createsuperuser
+```
+
+Поднимаются 4 сервиса: web (gunicorn), PostgreSQL 16, Redis 7, celery worker.
+Статику отдаёт WhiteNoise, медиа хранятся в volume. Подробности — `.agents/skills/deployment_checklist`.
+
+---
+
+## 👤 Демо-аккаунты (локальная сборка)
+
+| Роль | Email | Пароль |
+|---|---|---|
+| Студент | `student@test.com` | `Test1234!` |
+| Работодатель | `employer@test.com` | `Test1234!` |
+| Админ | `admin@studcareer.uz` | `Admin12345!` |
 
 ---
 
@@ -132,11 +158,24 @@ ruff format --check .
 
 | Переменная | Описание | По умолчанию |
 |---|---|---|
-| `SECRET_KEY` | Django secret key | — (обязательно) |
-| `DEBUG` | Режим отладки | `True` |
-| `DATABASE_URL` | URL базы данных | SQLite |
-| `REDIS_URL` | URL Redis-сервера | `redis://localhost:6379/1` |
-| `EMAIL_BACKEND` | Email backend | `console` |
+| `SECRET_KEY` | Django secret key | — (обязательно на проде) |
+| `ALLOWED_HOSTS` | Хосты через запятую | `localhost,127.0.0.1` |
+| `DATABASE_URL` | URL базы данных | SQLite (dev) |
+| `CELERY_BROKER_URL` | Redis-брокер Celery | `redis://localhost:6379/1` |
+| `CELERY_RESULT_BACKEND` | Redis для результатов задач | `redis://localhost:6379/2` |
+| `SECURE_SSL_REDIRECT` | Редирект на HTTPS (прод) | `True` |
+
+---
+
+## 🌍 Локализация
+
+Интерфейс доступен на **русском**, **узбекском** и **английском** (переключатель в navbar).
+Новые строки оборачиваются в `{% translate %}` и добавляются в
+`scripts/build_translations.py`, затем:
+
+```bash
+python scripts/build_translations.py
+```
 
 ---
 
@@ -145,8 +184,10 @@ ruff format --check .
 - [x] **Фаза 1:** Каркас проекта, модель User, базовые шаблоны
 - [x] **Фаза 2:** Профили студентов, компании, конструктор резюме (PDF/DOCX)
 - [x] **Фаза 3:** Каталог стажировок, отклики, Kanban-доска
-- [x] **Фаза 4:** Система чатов, email-уведомления через Celery
-- [ ] **Фаза 5:** Аналитика, дашборды, SEO, полировка UI
+- [x] **Фаза 4:** Система чатов, email + in-app уведомления
+- [x] **Фаза 5:** Дашборды, SEO, i18n (ru/uz/en), деплой-подготовка
+
+Следующий шаг — деплой на VPS (`docker compose up -d --build`).
 
 ---
 
