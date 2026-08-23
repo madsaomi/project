@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block title %}
-    {% if is_edit %}Редактирование: {{ internship.title }}{% else %}Новая стажировка{% endif %} — StudCareer
+    {% if is_edit %}{% translate "Редактирование" %}: {{ internship.title }}{% else %}{% translate "Новая стажировка" %}{% endif %} — StudCareer
 {% endblock %}
 
 {% block content %}
@@ -9,13 +10,13 @@
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 sm:p-10">
         <div class="mb-8">
             <h1 class="text-2xl font-bold text-gray-900">
-                {% if is_edit %}Редактирование стажировки{% else %}Публикация стажировки{% endif %}
+                {% if is_edit %}{% translate "Редактирование стажировки" %}{% else %}{% translate "Публикация стажировки" %}{% endif %}
             </h1>
             <p class="mt-2 text-sm text-gray-500">
                 {% if is_edit %}
-                    Изменения сразу видны студентам. Снимите галочку «Активна», чтобы закрыть набор.
+                    {% translate "Изменения сразу видны студентам. Снимите галочку «Активна», чтобы закрыть набор." %}
                 {% else %}
-                    Заполните детали, чтобы привлечь лучших студентов.
+                    {% translate "Заполните детали, чтобы привлечь лучших студентов." %}
                 {% endif %}
             </p>
         </div>
@@ -104,17 +105,17 @@
                 {% if is_edit %}
                 <label class="flex items-center">
                     {{ form.is_active }}
-                    <span class="ml-2 text-sm text-gray-700">{{ form.is_active.label }} (видна в каталоге)</span>
+                    <span class="ml-2 text-sm text-gray-700">{{ form.is_active.label }} ({% translate "видна в каталоге" %})</span>
                 </label>
                 {% endif %}
             </div>
 
             <div class="pt-6 border-t border-gray-100 flex justify-end gap-3">
                 <a href="{% url 'internships:dashboard' %}" class="px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 transition-colors">
-                    Отмена
+                    {% translate "Отмена" %}
                 </a>
                 <button type="submit" class="px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 transition-colors">
-                    {% if is_edit %}Сохранить{% else %}Опубликовать{% endif %}
+                    {% if is_edit %}{% translate "Сохранить" %}{% else %}{% translate "Опубликовать" %}{% endif %}
                 </button>
             </div>
         </form>

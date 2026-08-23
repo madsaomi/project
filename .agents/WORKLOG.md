@@ -371,3 +371,30 @@ _(нетривиальные архитектурные выборы — зап�
 - [x] Коммит 08dc83e; remote origin=https://github.com/madsaomi/project.git — пуш НЕ делал (нужно решение владельца)
 
 **Результат:** ✅ README.md, templates/messaging/chat.html. Тесты 47 passed.
+
+
+---
+
+### [2026-08-23 16:11] Задача: Тесты profiles/messaging + финальное i18n-покрытие
+**Статус:** 🔄 IN_PROGRESS
+**Агент:** ox-alpha (opencode)
+**Контекст:** Пользователь просил продолжать. Оставались непротестированными напрямую builder/export_docx и send_message; не переведены form.html, builder/viewer.
+**Что делаю:**
+- [ ] Тесты: builder GET/POST, export_docx, chat_detail доступ, send_message HTMX
+- [ ] i18n: обернуть internships/form.html, profiles/builder+viewer
+- [ ] Каталоги + пересборка, тесты, коммит
+
+**Прогресс:**
+
+**Ошибки:**
+
+**Решения:**
+
+**Прогресс:**
+- ✅ [16:25] Тесты +8: profiles (builder create/save, export_docx, приватный viewer), messaging (detail доступ, HTMX send, пустое сообщение, чужой работодатель → redirect)
+- [x] 🐛 ТЕСТ ПОЙМАЛ БАГ: работодатель БЕЗ компании получал 500 в /messages/<pk>/ (request.user.company без hasattr-проверки в chat_detail и send_message). Исправлено redirect на главную
+- [x] i18n: обёрнуты form.html (заголовки/кнопки) и builder.html (все поля); каталоги 84 → 103 строки × {uz,en}
+- [x] conftest: UserFactory переведён на factory.django.Password + skip_postgeneration_save — 0 warnings
+- [x] Итог: 55 passed, 0 warnings, ruff clean
+
+**Результат:** ✅ apps/{profiles/tests.py,messaging/tests.py,messaging/views.py}, templates/{internships/form.html,profiles/builder.html}, scripts/build_translations.py, locale/*, conftest.py.

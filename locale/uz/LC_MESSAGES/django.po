@@ -29,6 +29,9 @@ msgstr "Nomzodlar bilan suhbatlaringiz"
 msgid "Ваши чаты с работодателями"
 msgstr "Ish beruvchilar bilan suhbatlaringiz"
 
+msgid "Введите сообщение..."
+msgstr "Xabar kiriting..."
+
 msgid "Вернуться ко входу"
 msgstr "Kirish sahifasiga qaytish"
 
@@ -46,6 +49,9 @@ msgstr "Barcha huquqlar himoyalangan."
 
 msgid "Всего откликов"
 msgstr "Jami arizalar"
+
+msgid "Вуз / Колледж"
+msgstr "OTM / Kollej"
 
 msgid "Вход в аккаунт"
 msgstr "Hisobga kirish"
@@ -72,6 +78,9 @@ msgstr ""
 "Bunday email bilan hisob mavjud bo‘lsa, parolni tiklash havolasini yubordik."
 " Pochtani (va «Spam» papkasini) tekshiring."
 
+msgid "Желаемая должность"
+msgstr "Orzu qilingan lavozim"
+
 msgid "Забыли пароль?"
 msgstr "Parolni eslay olmaysizmi?"
 
@@ -84,6 +93,9 @@ msgstr "Yakunlangan"
 msgid "Закрыта"
 msgstr "Yopiq"
 
+msgid "Заполните детали, чтобы привлечь лучших студентов."
+msgstr "Eng yaxshi talabalarni jalb qilish uchun tafsilotlarni to‘ldiring."
+
 msgid "Запросить заново"
 msgstr "Yana so‘rash"
 
@@ -92,6 +104,13 @@ msgstr "Ro‘yxatdan o‘tish"
 
 msgid "Здесь появятся отклики и изменения статусов."
 msgstr "Bu yerda arizalar va holat o‘zgarishlari paydo bo‘ladi."
+
+msgid ""
+"Изменения сразу видны студентам. Снимите галочку «Активна», чтобы закрыть "
+"набор."
+msgstr ""
+"O‘zgarishlar talabalarga darhol ko‘rinadi. Yopish uchun «Faol» belgisini "
+"oling."
 
 msgid "Изменить"
 msgstr "Tahrirlash"
@@ -107,6 +126,9 @@ msgstr "Kategoriya"
 
 msgid "Ко входу"
 msgstr "Kirishga"
+
+msgid "Конструктор резюме"
+msgstr "Rezyume konstruktori"
 
 msgid "Мои стажировки"
 msgstr "Mening stajirovklarim"
@@ -141,6 +163,9 @@ msgstr "Yangi arizalar"
 msgid "Новый пароль"
 msgstr "Yangi parol"
 
+msgid "О себе"
+msgstr "O‘zingiz haqingizda"
+
 msgid "Обязанности"
 msgstr "Vazifalar"
 
@@ -150,6 +175,9 @@ msgstr "Stajirovka tavsifi"
 msgid "Оплачиваемая"
 msgstr "To‘lanadigan"
 
+msgid "Опубликовать"
+msgstr "E’lon qilish"
+
 msgid "Отклики и текущий статус по каждому"
 msgstr "Har biri bo‘yicha arizalar va joriy holat"
 
@@ -158,6 +186,9 @@ msgstr "Suhbatni boshlash uchun stajirovkaga ariza yuboring."
 
 msgid "Откликнуться"
 msgstr "Ariza yuborish"
+
+msgid "Отмена"
+msgstr "Bekor qilish"
 
 msgid "Отправить ссылку"
 msgstr "Havolani yuborish"
@@ -192,11 +223,20 @@ msgstr "Pochtangizni tekshiring"
 msgid "Прочитать все"
 msgstr "Hammasini o‘qilgan deb belgilash"
 
+msgid "Публикация стажировки"
+msgstr "Stajirovkani e’lon qilish"
+
 msgid "Работодатель"
 msgstr "Ish beruvchi"
 
 msgid "Регистрация"
 msgstr "Ro‘yxatdan o‘tish"
+
+msgid "Редактирование"
+msgstr "Tahrirlash"
+
+msgid "Редактирование стажировки"
+msgstr "Stajirovkani tahrirlash"
 
 msgid "Роль"
 msgstr "Rol"
@@ -204,14 +244,26 @@ msgstr "Rol"
 msgid "Сброс пароля"
 msgstr "Parolni tiklash"
 
+msgid "Создание профиля (Резюме)"
+msgstr "Profil yaratish (Rezyume)"
+
 msgid "Создать стажировку"
 msgstr "Stajirovka yaratish"
 
 msgid "Сообщения"
 msgstr "Xabarlar"
 
+msgid "Сохранить"
+msgstr "Saqlash"
+
+msgid "Сохранить и посмотреть"
+msgstr "Saqlash va ko‘rish"
+
 msgid "Сохранить пароль"
 msgstr "Parolni saqlash"
+
+msgid "Специальность"
+msgstr "Mutaxassislik"
 
 msgid ""
 "Ссылка для сброса устарела или уже была использована. Запросите сброс пароля"
@@ -256,11 +308,20 @@ msgstr "Email kiriting — yangi parol uchun havola yuboramiz."
 msgid "Управление откликами на ваши стажировки"
 msgstr "Stajirovkalaringizga kelib tushgan arizalarni boshqarish"
 
+msgid "ФИО"
+msgstr "F.I.Sh."
+
 msgid "Фильтры"
 msgstr "Filtrlar"
 
+msgid "Чат"
+msgstr "Suhbat"
+
 msgid "Я работодатель"
 msgstr "Men ish beruvchiman"
+
+msgid "видна в каталоге"
+msgstr "katalogda ko‘rinadi"
 
 msgid "новое"
 msgstr "yangi"

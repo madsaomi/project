@@ -29,6 +29,9 @@ msgstr "Your chats with candidates"
 msgid "Ваши чаты с работодателями"
 msgstr "Your chats with employers"
 
+msgid "Введите сообщение..."
+msgstr "Type a message..."
+
 msgid "Вернуться ко входу"
 msgstr "Back to login"
 
@@ -46,6 +49,9 @@ msgstr "All rights reserved."
 
 msgid "Всего откликов"
 msgstr "Total applications"
+
+msgid "Вуз / Колледж"
+msgstr "University / College"
 
 msgid "Вход в аккаунт"
 msgstr "Log in"
@@ -72,6 +78,9 @@ msgstr ""
 "If an account with this email exists, we've sent a password reset link to "
 "it. Check your inbox (and spam folder)."
 
+msgid "Желаемая должность"
+msgstr "Desired position"
+
 msgid "Забыли пароль?"
 msgstr "Forgot password?"
 
@@ -84,6 +93,9 @@ msgstr "Completed"
 msgid "Закрыта"
 msgstr "Closed"
 
+msgid "Заполните детали, чтобы привлечь лучших студентов."
+msgstr "Fill in the details to attract the best students."
+
 msgid "Запросить заново"
 msgstr "Request again"
 
@@ -92,6 +104,13 @@ msgstr "Sign up"
 
 msgid "Здесь появятся отклики и изменения статусов."
 msgstr "Applications and status changes will appear here."
+
+msgid ""
+"Изменения сразу видны студентам. Снимите галочку «Активна», чтобы закрыть "
+"набор."
+msgstr ""
+"Changes are visible to students immediately. Uncheck \"Active\" to close "
+"applications."
 
 msgid "Изменить"
 msgstr "Edit"
@@ -107,6 +126,9 @@ msgstr "Category"
 
 msgid "Ко входу"
 msgstr "To login"
+
+msgid "Конструктор резюме"
+msgstr "Resume builder"
 
 msgid "Мои стажировки"
 msgstr "My internships"
@@ -141,6 +163,9 @@ msgstr "New applications"
 msgid "Новый пароль"
 msgstr "New password"
 
+msgid "О себе"
+msgstr "About me"
+
 msgid "Обязанности"
 msgstr "Responsibilities"
 
@@ -150,6 +175,9 @@ msgstr "About the internship"
 msgid "Оплачиваемая"
 msgstr "Paid"
 
+msgid "Опубликовать"
+msgstr "Publish"
+
 msgid "Отклики и текущий статус по каждому"
 msgstr "Your applications and their current status"
 
@@ -158,6 +186,9 @@ msgstr "Apply for an internship to start a conversation."
 
 msgid "Откликнуться"
 msgstr "Apply now"
+
+msgid "Отмена"
+msgstr "Cancel"
 
 msgid "Отправить ссылку"
 msgstr "Send link"
@@ -192,11 +223,20 @@ msgstr "Check your inbox"
 msgid "Прочитать все"
 msgstr "Mark all as read"
 
+msgid "Публикация стажировки"
+msgstr "Post an internship"
+
 msgid "Работодатель"
 msgstr "Employer"
 
 msgid "Регистрация"
 msgstr "Sign up"
+
+msgid "Редактирование"
+msgstr "Edit"
+
+msgid "Редактирование стажировки"
+msgstr "Edit internship"
 
 msgid "Роль"
 msgstr "Role"
@@ -204,14 +244,26 @@ msgstr "Role"
 msgid "Сброс пароля"
 msgstr "Password reset"
 
+msgid "Создание профиля (Резюме)"
+msgstr "Create profile (Resume)"
+
 msgid "Создать стажировку"
 msgstr "Post an internship"
 
 msgid "Сообщения"
 msgstr "Messages"
 
+msgid "Сохранить"
+msgstr "Save"
+
+msgid "Сохранить и посмотреть"
+msgstr "Save and preview"
+
 msgid "Сохранить пароль"
 msgstr "Save password"
+
+msgid "Специальность"
+msgstr "Major"
 
 msgid ""
 "Ссылка для сброса устарела или уже была использована. Запросите сброс пароля"
@@ -255,11 +307,20 @@ msgstr "Enter your email and we will send you a link to set a new password."
 msgid "Управление откликами на ваши стажировки"
 msgstr "Manage applications to your internships"
 
+msgid "ФИО"
+msgstr "Full name"
+
 msgid "Фильтры"
 msgstr "Filters"
 
+msgid "Чат"
+msgstr "Chat"
+
 msgid "Я работодатель"
 msgstr "I'm an employer"
+
+msgid "видна в каталоге"
+msgstr "visible in catalog"
 
 msgid "новое"
 msgstr "new"

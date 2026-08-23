@@ -109,6 +109,27 @@ CATALOGS = {
         'Должность или компания…': 'Lavozim yoki kompaniya…',
         'Найдите идеальную стажировку для старта карьеры':
             'Karyerani boshlash uchun ideal stajirovkani toping',
+        'Редактирование': 'Tahrirlash',
+        'Редактирование стажировки': 'Stajirovkani tahrirlash',
+        'Публикация стажировки': 'Stajirovkani e’lon qilish',
+        'Изменения сразу видны студентам. Снимите галочку «Активна», чтобы закрыть набор.':
+            'O‘zgarishlar talabalarga darhol ko‘rinadi. Yopish uchun «Faol» belgisini oling.',
+        'Заполните детали, чтобы привлечь лучших студентов.':
+            'Eng yaxshi talabalarni jalb qilish uchun tafsilotlarni to‘ldiring.',
+        'видна в каталоге': 'katalogda ko‘rinadi',
+        'Отмена': 'Bekor qilish',
+        'Сохранить': 'Saqlash',
+        'Опубликовать': 'E’lon qilish',
+        'Конструктор резюме': 'Rezyume konstruktori',
+        'Создание профиля (Резюме)': 'Profil yaratish (Rezyume)',
+        'ФИО': 'F.I.Sh.',
+        'Желаемая должность': 'Orzu qilingan lavozim',
+        'О себе': 'O‘zingiz haqingizda',
+        'Вуз / Колледж': 'OTM / Kollej',
+        'Специальность': 'Mutaxassislik',
+        'Сохранить и посмотреть': 'Saqlash va ko‘rish',
+        'Чат': 'Suhbat',
+        'Введите сообщение...': 'Xabar kiriting...',
     },
     'en': {
         'Стажировки': 'Internships',
@@ -204,6 +225,27 @@ CATALOGS = {
         'Должность или компания…': 'Position or company…',
         'Найдите идеальную стажировку для старта карьеры':
             'Find the perfect internship to start your career',
+        'Редактирование': 'Edit',
+        'Редактирование стажировки': 'Edit internship',
+        'Публикация стажировки': 'Post an internship',
+        'Изменения сразу видны студентам. Снимите галочку «Активна», чтобы закрыть набор.':
+            'Changes are visible to students immediately. Uncheck "Active" to close applications.',
+        'Заполните детали, чтобы привлечь лучших студентов.':
+            'Fill in the details to attract the best students.',
+        'видна в каталоге': 'visible in catalog',
+        'Отмена': 'Cancel',
+        'Сохранить': 'Save',
+        'Опубликовать': 'Publish',
+        'Конструктор резюме': 'Resume builder',
+        'Создание профиля (Резюме)': 'Create profile (Resume)',
+        'ФИО': 'Full name',
+        'Желаемая должность': 'Desired position',
+        'О себе': 'About me',
+        'Вуз / Колледж': 'University / College',
+        'Специальность': 'Major',
+        'Сохранить и посмотреть': 'Save and preview',
+        'Чат': 'Chat',
+        'Введите сообщение...': 'Type a message...',
     },
 }
 

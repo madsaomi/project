@@ -15,10 +15,11 @@ def celery_eager(settings):
 class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = User
+        skip_postgeneration_save = True
 
     email = factory.Sequence(lambda n: f'user{n}@test.com')
     username = factory.Sequence(lambda n: f'user{n}')
-    password = factory.PostGenerationMethodCall('set_password', 'testpass123')
+    password = factory.django.Password('testpass123')
     role = User.Role.STUDENT
     is_active = True
     accepted_terms = True

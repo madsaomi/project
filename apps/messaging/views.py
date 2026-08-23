@@ -43,6 +43,8 @@ def chat_detail(request, pk):
         conversation = get_object_or_404(Conversation, pk=pk, student=request.user)
         other_party = conversation.company.name
     elif request.user.role == 'employer':
+        if not hasattr(request.user, 'company'):
+            return redirect('core:home')
         conversation = get_object_or_404(Conversation, pk=pk, company=request.user.company)
         other_party = conversation.student.email
     else:
@@ -77,6 +79,8 @@ def send_message(request, pk):
     if request.user.role == 'student':
         conversation = get_object_or_404(Conversation, pk=pk, student=request.user)
     elif request.user.role == 'employer':
+        if not hasattr(request.user, 'company'):
+            return redirect('core:home')
         conversation = get_object_or_404(Conversation, pk=pk, company=request.user.company)
     else:
         return redirect('core:home')
