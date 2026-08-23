@@ -359,3 +359,15 @@ _(нетривиальные архитектурные выборы — зап�
 - Первая версия Dockerfile делал collectstatic на BUILD-стадии — SECRET_KEY недоступен при сборке. *Решение:* перенесён в CMD контейнера.
 
 **Результат:** ✅ Dockerfile, docker-compose.yml, .dockerignore, requirements/{production.txt,base.txt}, config/settings/base.py, deployment_checklist skill.
+---
+
+### [2026-08-23 01:40] Задача: README refresh + чистка chat.html
+**Статус:** ✅ DONE
+**Агент:** ox-alpha (opencode)
+**Контекст:** Финальная документационная зачистка.
+**Что сделал:**
+- [x] README: секции Docker-деплоя, демо-аккаунты, i18n, актуальные env-переменные, roadmap Phase 5 закрыт
+- [x] chat.html: убран дублирующий CSRF-хук (глобальный уже в base.html), строки обёрнуты в translate
+- [x] Коммит 08dc83e; remote origin=https://github.com/madsaomi/project.git — пуш НЕ делал (нужно решение владельца)
+
+**Результат:** ✅ README.md, templates/messaging/chat.html. Тесты 47 passed.
