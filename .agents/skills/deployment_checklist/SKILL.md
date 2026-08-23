@@ -5,7 +5,25 @@ description: Чеклист перед деплоем на продакшен �
 
 # Чеклист деплоя на Продакшен
 
-> ⚠️ Это описание инфраструктуры. Актуально для Фазы 5.
+> Обновлено 2026-08-23: добавлен Docker-бандл — самый быстрый путь на VPS.
+
+## 0. Docker (РЕКОМЕНДУЕМЫЙ путь)
+
+В проекте есть `Dockerfile`, `docker-compose.yml` (web + PostgreSQL 16 + Redis 7 + celery worker), `.dockerignore`, `requirements/production.txt` (gunicorn). Статика отдаётся через WhiteNoise — Nginx не обязателен на старте.
+
+```bash
+git clone <repo> && cd studcareer
+cp .env.example .env
+nano .env   # SECRET_KEY, ALLOWED_HOSTS=ваш-домен, DB_PASSWORD, SECURE_SSL_REDIRECT
+docker compose up -d --build
+docker compose exec web python manage.py createsuperuser
+```
+
+Порт 8000 наружу; далее Nginx/Caddy как reverse-proxy + HTTPS (Certbot).
+Медиа в volume `media_files`, БД в `pgdata`.
+
+⚠️ `SECURE_SSL_REDIRECT=True` включать только после настройки HTTPS (иначе цикл
+редиректов). За прокси нужен X-Forwarded-Proto — SECURE_PROXY_SSL_HEADER уже настроен.
 
 ---
 

@@ -8,7 +8,7 @@ description: Дерево шаблонов проекта, блоки base.html,
 ## 1. Дерево файлов (`templates/`)
 
 > ⚠️ Обновляй при создании новых шаблонов.
-> Последнее обновление: 2026-08-12 (после Фазы 2)
+> Последнее обновление: 2026-08-22 (Фаза 5.1 — дашборды)
 
 ```
 templates/
@@ -16,13 +16,19 @@ templates/
 ├── home.html                   # Главная страница (лендинг)
 │
 ├── components/
-│   ├── navbar.html             # Навигационная панель (sticky, авторизация)
+│   ├── navbar.html             # Навигация (роли, logout через POST-форму!)
 │   ├── footer.html             # Подвал
 │   └── toast.html              # Компонент уведомлений (Alpine.js события)
 │
 ├── accounts/
-│   ├── login.html              # Форма входа
-│   └── register.html           # Форма регистрации (с выбором роли)
+│   ├── login.html              # Форма входа (+ блок error, ссылка «Забыли пароль?»)
+│   ├── register.html           # Форма регистрации с выбором роли (+ блок error)
+│   ├── password_reset_form.html    # Запрос сброса пароля
+│   ├── password_reset_done.html    # «Письмо отправлено»
+│   ├── password_reset_confirm.html # Новый пароль (или недействительная ссылка)
+│   ├── password_reset_complete.html# «Пароль изменён»
+│   ├── password_reset_email.txt    # Текст письма сброса
+│   └── password_reset_subject.txt  # Тема письма
 │
 ├── legal/
 │   ├── terms_of_service.html   # ToS
@@ -34,21 +40,28 @@ templates/
 │   └── themes/
 │       └── classic.html        # Тема резюме "Классика" (для viewer и PDF)
 │
-└── companies/
-    ├── edit.html               # Форма редактирования профиля компании
-    └── view.html               # Публичная страница компании
-```
-
-### Планируемые шаблоны (Фаза 3):
-```
+├── companies/
+│   ├── edit.html               # Форма редактирования профиля компании
+│   └── view.html               # Публичная страница компании
+│
 ├── internships/
 │   ├── catalog.html            # Каталог стажировок (полная страница)
 │   ├── detail.html             # Страница стажировки
-│   ├── create.html             # Форма создания стажировки
-│   ├── dashboard.html          # Kanban-доска работодателя
-│   ├── _list.html              # HTMX partial: список карточек
-│   ├── _card.html              # Одна карточка стажировки
-│   └── _apply_btn.html         # Кнопка "Откликнуться" / "Вы уже откликнулись"
+│   ├── form.html               # Общая форма создания/редактирования (is_edit)
+│   ├── dashboard.html          # Kanban работодателя (+блок «Мои стажировки»)
+│   ├── my_internships.html     # Дашборд студента (статистика + отклики)
+│   ├── _list.html              # HTMX partial: список карточек каталога
+│   ├── _card.html              # Карточка стажировки в каталоге
+│   ├── _apply_btn.html         # Кнопка "Откликнуться" / "Вы откликнулись"
+│   └── _participant_card.html  # Карточка кандидата в Kanban (HTMX self-swap)
+│
+└── messaging/
+    ├── list.html               # Список чатов
+    ├── chat.html               # Окно чата
+    └── _message_feed.html      # HTMX partial: лента сообщений
+
+└── notifications/
+    └── list.html               # Список уведомлений (+«Прочитать все»)
 ```
 
 ---

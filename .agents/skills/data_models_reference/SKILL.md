@@ -115,3 +115,26 @@ description: Полная шпаргалка по всем полям всех �
 | `position` | CharField | Должность на стажировке |
 
 > Unique together: `(internship, student)` — студент не может дважды откликнуться на одну стажировку.
+> Property `conversation` → Conversation студента с компанией (или None).
+
+## `messaging.Conversation`
+| Поле | Тип | Описание |
+|---|---|---|
+| `student` | ForeignKey → User | related_name=`student_conversations` |
+| `company` | ForeignKey → Company | related_name=`conversations` |
+| `created_at` / `updated_at` | DateTimeField | |
+
+> Unique together: `(student, company)`. Создаётся автоматически при отклике (apply).
+> `Message` — FK conversation, sender, content, is_read.
+
+## `notifications.Notification`
+| Поле | Тип | Описание |
+|---|---|---|
+| `recipient` | ForeignKey → User | related_name=`notifications` |
+| `message` | CharField(255) | Текст уведомления |
+| `url` | CharField(255) | Куда вести по клику (может быть пустым) |
+| `is_read` | BooleanField | По умолчанию False |
+| `created_at` | DateTimeField | auto_now_add, сортировка `-created_at` |
+
+> Создаются сигналом internships: новый отклик → работодателю, смена статуса → студенту.
+> Бейдж в navbar через context processor `unread_notifications`.

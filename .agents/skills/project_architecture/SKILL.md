@@ -8,85 +8,86 @@ description: Полная архитектура проекта StudCareer, ст
 ## 1. Дерево файлов проекта
 
 > ⚠️ **Обновляй это дерево** при создании новых приложений или значимых файлов.
-> Последнее обновление: 2026-08-12 (после Фазы 2)
+> Последнее обновление: 2026-08-22 (Фаза 5 завершена)
 
 ```
 studcareer/                         ← корень проекта (= BASE_DIR)
 ├── manage.py
-├── pyproject.toml                  ← Ruff, pytest
+├── pyproject.toml                  ← Ruff, pytest, per-file-ignores
 ├── .pre-commit-config.yaml
+├── conftest.py                     ← фикстуры: student_user, employer_user, internship_factory,
+│                                      CELERY_TASK_ALWAYS_EAGER (autouse)
+├── scripts/
+│   └── build_translations.py       ← сборка locale/{uz,en} через polib (gettext не нужен)
 ├── db.sqlite3                      ← SQLite (dev only)
 │
 ├── config/                         ← Django-проект
-│   ├── __init__.py
-│   ├── urls.py                     ← Главный роутер
+│   ├── __init__.py                 ← импорт celery_app
+│   ├── celery.py                   ← Celery-приложение
+│   ├── urls.py                     ← Роутер (+ i18n/setlang, media в DEBUG)
 │   ├── wsgi.py / asgi.py
 │   └── settings/
-│       ├── __init__.py             ← import development (по умолчанию)
-│       ├── base.py                 ← Общие настройки
-│       ├── development.py          ← DEBUG=True, SQLite
-│       └── production.py           ← DEBUG=False, PostgreSQL, .env
+│       ├── __init__.py
+│       ├── base.py                 ← STATIC_ROOT, MEDIA_*, auth-редиректы, i18n context processor
+│       ├── development.py          ← DEBUG=True, SQLite, CELERY_TASK_ALWAYS_EAGER
+│       └── production.py           ← .env, PostgreSQL, HSTS/SSL-redirect, SMTP
 │
-├── apps/                           ← Все Django-приложения
+├── apps/
 │   ├── __init__.py
 │   │
-│   ├── accounts/                   ← Кастомная модель User
-│   │   ├── models.py              ← User (AbstractUser + roles)
-│   │   ├── views.py               ← login, register
-│   │   ├── urls.py                ← /accounts/login/, /accounts/register/
-│   │   └── admin.py
+│   ├── accounts/                   ← User + аутентификация
+│   │   ├── models.py              ← User (AbstractUser + роли, логин по email)
+│   │   ├── signals.py             ← автосоздание StudentProfile студентам (gotchas #15)
+│   │   ├── decorators.py          ← @student_required / @employer_required
+│   │   ├── mixins.py              ← CBV-миксины ролей
+│   │   ├── views.py               ← register/login/logout + PasswordReset views
+│   │   ├── urls.py                ← /accounts/* (вкл. password-reset/*)
+│   │   └── tests.py               ← роли, auth-флоу, password-reset, i18n
 │   │
-│   ├── core/                       ← Общие views (главная, legal)
+│   ├── core/                       ← Главная страница
 │   │   ├── views.py               ← home
-│   │   └── urls.py                ← / (главная)
+│   │   └── urls.py                ← /
 │   │
 │   ├── profiles/                   ← Профили студентов + резюме
 │   │   ├── models.py              ← StudentProfile, Skill, LanguageSkill, InternshipExperience
-│   │   ├── views.py               ← builder, viewer, export_pdf, export_docx
-│   │   ├── urls.py                ← /profiles/builder/, /profiles/view/
-│   │   ├── admin.py
+│   │   ├── views.py               ← builder (get_or_create), viewer, export_pdf, export_docx
+│   │   ├── urls.py                ← /profiles/*
 │   │   └── services/
-│   │       ├── pdf_exporter.py    ← WeasyPrint → PDF
+│   │       ├── pdf_exporter.py    ← WeasyPrint → PDF (импорт внутри функции — GTK на Windows)
 │   │       └── docx_exporter.py   ← python-docx → DOCX
 │   │
 │   ├── companies/                  ← Профили компаний
 │   │   ├── models.py              ← Company (1-to-1 User, verification_status)
-│   │   ├── views.py               ← company_edit, company_view
-│   │   ├── urls.py                ← /companies/edit/, /companies/<slug>/
-│   │   └── admin.py
+│   │   ├── views.py               ← profile_edit (get_or_create), profile_view
+│   │   └── urls.py                ← /companies/edit/, /companies/<pk>/
 │   │
-│   └── internships/                ← Стажировки (модели готовы, views — Фаза 3)
-│       ├── models.py              ← Internship, Category, InternshipSkill, InternshipParticipant
-│       ├── views.py               ← ⏳ пока пустой (Фаза 3)
-│       └── admin.py
+│   ├── internships/                ← Ядро: стажировки и отклики
+│   │   ├── models.py              ← Category, Internship, InternshipSkill, InternshipParticipant
+│   │   │                            (participant.conversation → диалог)
+│   │   ├── forms.py               ← InternshipForm (create/edit, автослаг)
+│   │   ├── views.py               ← catalog, detail, apply, create, edit, my_internships,
+│   │   │                            dashboard, update_participant_status (ALLOWED_TRANSITIONS)
+│   │   ├── signals.py             ← completed → InternshipExperience; отклик/статус → Notification
+│   │   ├── urls.py                ← /internships/* (<slug>/edit/ ДО catch-all <slug>/)
+│   │   └── tests.py + test_journey.py  ← юнит + интеграционный путь студента
+│   │
+│   ├── messaging/                  ← Чаты Conversation (student↔company) + Message
+│   │   └── Conversation создаётся при отклике (internships.views.apply)
+│   │
+│   └── notifications/              ← In-app уведомления
+│       ├── models.py              ← Notification (recipient, message, url, is_read)
+│       ├── context_processors.py  ← unread_count для бейджа navbar
+│       └── urls.py                ← /notifications/, mark-read/ (POST)
 │
-├── templates/                      ← Все HTML-шаблоны
-│   ├── base.html                  ← Главный layout (Tailwind, Alpine, HTMX)
-│   ├── home.html                  ← Лендинг
-│   ├── components/
-│   │   ├── navbar.html            ← Навигация (sticky)
-│   │   ├── footer.html            ← Подвал
-│   │   └── toast.html             ← Toast-уведомления (Alpine.js)
-│   ├── accounts/
-│   │   ├── login.html
-│   │   └── register.html
-│   ├── legal/
-│   │   ├── terms_of_service.html
-│   │   └── privacy_policy.html
-│   ├── profiles/
-│   │   ├── builder.html           ← Конструктор резюме
-│   │   ├── viewer.html            ← Просмотр + кнопки экспорта
-│   │   └── themes/
-│   │       └── classic.html       ← Тема "Классика" (для viewer и PDF)
-│   └── companies/
-│       ├── edit.html              ← Форма редактирования
-│       └── view.html              ← Публичная страница
+├── templates/                      ← Полное дерево → templates_structure skill
 │
 ├── requirements/
 │   ├── base.txt                   ← Django, WeasyPrint, Celery, python-docx, Pillow
-│   └── development.txt            ← pytest, ruff, pre-commit, django-debug-toolbar
+│   └── development.txt            ← pytest, ruff, pre-commit, polib
 │
-├── locale/                         ← Переводы i18n (ru, uz, en)
+├── locale/{uz,en}/LC_MESSAGES/     ← django.po/.mo (сборка: scripts/build_translations.py)
+├── staticfiles/                    ← collectstatic (gitignored)
+├── media/                          ← загрузки (gitignored)
 │
 └── .agents/                        ← База знаний агентов
     ├── AGENTS.md                  ← Главный файл правил

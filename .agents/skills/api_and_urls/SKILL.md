@@ -5,22 +5,35 @@ description: Полная карта всех URL-маршрутов проек�
 
 # Карта URL-маршрутов (API & URLs)
 
-> **Статус:** ✅ Верифицировано с реальным кодом. Актуально на конец Фазы 2.
-> Последняя проверка: 2026-08-12
+> **Статус:** ✅ Верифицировано с реальным кодом. Актуально на Фазу 5.1.
+> Последняя проверка: 2026-08-22
 
 ## Корневой роутер (`config/urls.py`)
 
 ```python
 urlpatterns = [
-    path('admin/',      admin.site.urls),
-    path('accounts/',   include('apps.accounts.urls')),   # app_name='accounts'
-    path('profiles/',   include('apps.profiles.urls')),    # app_name='profiles'
-    path('companies/',  include('apps.companies.urls')),   # app_name='companies'
-    path('',            include('apps.core.urls')),        # app_name='core'
+    path('admin/',       admin.site.urls),
+    path('accounts/',    include('apps.accounts.urls')),      # app_name='accounts'
+    path('profiles/',    include('apps.profiles.urls')),      # app_name='profiles'
+    path('companies/',   include('apps.companies.urls')),     # app_name='companies'
+    path('internships/', include('apps.internships.urls')),   # app_name='internships'
+    path('messages/',    include('apps.messaging.urls')),     # app_name='messaging'
+    path('notifications/', include('apps.notifications.urls')), # app_name='notifications'
+    path('',             include('apps.core.urls')),          # app_name='core'
 ]
 ```
 
-> ⚠️ При Фазе 3 нужно добавить: `path('internships/', include('apps.internships.urls'))`
+---
+
+## `notifications` — In-app уведомления
+
+| URL | `name` (reverse) | View | Метод | Доступ |
+|---|---|---|---|---|
+| `/notifications/` | `notifications:list` | `notification_list` | GET | `@login_required` |
+| `/notifications/mark-read/` | `notifications:mark_all_read` | `mark_all_read` | **POST** | `@login_required` |
+
+> Бейдж непрочитанных в navbar через context processor `apps.notifications.context_processors.unread_notifications`.
+> Уведомления создаются в сигнале `apps/internships/signals.py`: новый отклик → работодателю, смена статуса → студенту.
 
 ---
 
@@ -30,8 +43,16 @@ urlpatterns = [
 |---|---|---|---|---|
 | `/accounts/login/` | `accounts:login` | `login_view` | GET, POST | Все |
 | `/accounts/register/` | `accounts:register` | `register_view` | GET, POST | Все |
+| `/accounts/logout/` | `accounts:logout` | `LogoutView` (Django) | **POST** | Авторизованные |
+| `/accounts/password-reset/` | `accounts:password_reset` | `PasswordResetView` | GET, POST | Все |
+| `/accounts/password-reset/done/` | `accounts:password_reset_done` | `PasswordResetDoneView` | GET | Все |
+| `/accounts/password-reset/<uidb64>/<token>/` | `accounts:password_reset_confirm` | `PasswordResetConfirmView` | GET, POST | Все |
+| `/accounts/password-reset/complete/` | `accounts:password_reset_complete` | `PasswordResetCompleteView` | GET | Все |
 
-> 🔜 Планируется: `/accounts/logout/`, `/accounts/password-reset/`
+> ⚠️ LogoutView принимает только POST — в navbar это inline-форма с `{% csrf_token %}`, НЕ `<a href>`.
+> После регистрации: студент → каталог, работодатель → профиль компании.
+> После входа: студент → «Мои стажировки», работодатель → Kanban.
+> Password-reset: встроенные auth-views Django; в dev письмо падает в консоль сервера, на проде — SMTP. Confirm-view при валидном токене редиректит на session-based `set-password/` (норма Django 5).
 
 ---
 
@@ -63,18 +84,33 @@ urlpatterns = [
 
 ---
 
-## `internships` — Стажировки (⏳ Фаза 3 — ещё не реализовано)
-
-> Модели мигрированы, views пустые. Ниже — **планируемые** маршруты из `phase3_detailed_plan`.
+## `internships` — Стажировки
 
 | URL | `name` (reverse) | View | Метод | Доступ |
 |---|---|---|---|---|
-| `/internships/` | `internships:catalog` | `catalog` | GET | Все |
-| `/internships/create/` | `internships:create` | `create` | GET, POST | `@employer_required` |
-| `/internships/<slug>/` | `internships:detail` | `detail` | GET | Все |
+| `/internships/` | `internships:catalog` | `catalog` | GET | Все (HTMX → `_list.html`) |
+| `/internships/create/` | `internships:create` | `create` | GET, POST | `@employer_required` (+наличие company) |
+| `/internships/dashboard/` | `internships:dashboard` | `dashboard` | GET | `@employer_required` |
+| `/internships/my/` | `internships:my_internships` | `my_internships` | GET | `@student_required` |
+| `/internships/participants/<int:pk>/status/` | `internships:update_status` | `update_participant_status` | **POST** | `@employer_required` + owner |
 | `/internships/<slug>/edit/` | `internships:edit` | `edit` | GET, POST | `@employer_required` + owner |
+| `/internships/<slug>/` | `internships:detail` | `detail` | GET | Все (только is_active=True) |
 | `/internships/<slug>/apply/` | `internships:apply` | `apply` | POST | `@student_required` |
-| `/dashboard/` | `internships:dashboard` | `dashboard` | GET | `@employer_required` |
+
+> ⚠️ `update_status`: object-level проверка (`participant.internship.company.user == request.user`, иначе 404) +
+> валидация переходов статусов (`ALLOWED_TRANSITIONS` во views.py). Возвращает partial карточки + toast.
+> ⚠️ `create/edit` используют общий шаблон `form.html`; slug генерируется автоматически из title.
+> Снятие галочки «Активна» в edit закрывает набор: вакансия исчезает из каталога и detail отдаёт 404.
+
+---
+
+## `messaging` — Чаты
+
+| URL | `name` (reverse) | View | Метод | Доступ |
+|---|---|---|---|---|
+| `/messages/` | `messaging:list` | `chat_list` | GET | `@login_required` |
+| `/messages/<int:pk>/` | `messaging:detail` | `chat_detail` | GET | `@login_required` + участник |
+| `/messages/<int:pk>/send/` | `messaging:send` | `send_message` | POST | `@login_required` + участник |
 
 ---
 
