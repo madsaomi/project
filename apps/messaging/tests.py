@@ -91,3 +91,50 @@ def test_other_company_cannot_read_conversation(student_user, internship_factory
 
     # Работодатель без отношения к чату уходит на главную, а не читает его
     assert response.status_code == 302
+
+
+@pytest.mark.django_db
+def test_send_message_htmx_returns_partial(
+    auth_student_client, student_user, employer_user, internship_factory
+):
+    internship = internship_factory(company=employer_user.company)
+    auth_student_client.post(
+        reverse('internships:apply', kwargs={'slug': internship.slug})
+    )
+    conversation = Conversation.objects.get(
+        company=employer_user.company, student=student_user
+    )
+    url = reverse('messaging:send', kwargs={'pk': conversation.pk})
+
+    response = auth_student_client.post(
+        url, {'content': 'Через HTMX'}, HTTP_HX_REQUEST='true'
+    )
+
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_send_message_get_redirects_to_chat(
+    auth_student_client, student_user, employer_user, internship_factory
+):
+    internship = internship_factory(company=employer_user.company)
+    auth_student_client.post(
+        reverse('internships:apply', kwargs={'slug': internship.slug})
+    )
+    conversation = Conversation.objects.get(
+        company=employer_user.company, student=student_user
+    )
+    url = reverse('messaging:send', kwargs={'pk': conversation.pk})
+
+    response = auth_student_client.get(url)
+
+    assert response.status_code == 302
+
+
+@pytest.mark.django_db
+def test_task_skips_missing_participant(db):
+    from apps.notifications.tasks import send_status_change_email
+
+    result = send_status_change_email(999999, 'active')
+
+    assert result is None

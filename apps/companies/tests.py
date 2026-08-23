@@ -33,3 +33,38 @@ def test_profile_edit_creates_company_for_employer():
     company = Company.objects.get(user=employer)
     assert response.status_code == 302
     assert company.name == 'Наша компания'
+
+
+@pytest.mark.django_db
+def test_admin_verification_actions():
+    from django.contrib.auth import get_user_model
+
+    User = get_user_model()
+    superuser = User.objects.create_superuser(
+        email='root@studcareer.uz', username='root', password='Admin12345!',
+        role='admin',
+    )
+    employer1 = UserFactory(role='employer')
+    employer2 = UserFactory(role='employer')
+    c1 = Company.objects.create(user=employer1, name='Первая')
+    c2 = Company.objects.create(user=employer2, name='Вторая')
+
+    admin_client = Client()
+    admin_client.force_login(superuser)
+
+    response = admin_client.post(
+        reverse('admin:companies_company_changelist'),
+        {'action': 'verify_companies', '_selected_action': [c1.pk, c2.pk]},
+    )
+    assert response.status_code == 302
+    c1.refresh_from_db()
+    c2.refresh_from_db()
+    assert c1.verification_status == 'verified' and c1.verified_at is not None
+
+    response = admin_client.post(
+        reverse('admin:companies_company_changelist'),
+        {'action': 'reject_companies', '_selected_action': [c2.pk]},
+    )
+    assert response.status_code == 302
+    c2.refresh_from_db()
+    assert c2.verification_status == 'rejected'

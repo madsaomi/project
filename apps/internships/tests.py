@@ -359,3 +359,36 @@ def test_kanban_card_links_to_resume(
     assert reverse('profiles:viewer', kwargs={'pk': profile.pk}).encode() \
         in response.content
     assert profile.full_name in response.content.decode()
+
+
+
+@pytest.mark.django_db
+def test_dashboard_without_company_renders_empty():
+    employer = UserFactory(role='employer')
+    client = Client()
+    client.force_login(employer)
+
+    response = client.get(reverse('internships:dashboard'))
+
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_apply_when_already_applied_keeps_status_silent(
+    auth_student_client, student_user, internship_factory
+):
+    internship = internship_factory()
+    InternshipParticipant.objects.create(
+        internship=internship, student=student_user, status='cancelled'
+    )
+
+    response = auth_student_client.post(
+        reverse('internships:apply', kwargs={'slug': internship.slug})
+    )
+
+    assert response.status_code == 200
+    assert 'HX-Trigger' not in response.headers
+    participant = InternshipParticipant.objects.get(
+        internship=internship, student=student_user
+    )
+    assert participant.status == 'cancelled'

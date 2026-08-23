@@ -398,3 +398,21 @@ _(нетривиальные архитектурные выборы — зап�
 - [x] Итог: 55 passed, 0 warnings, ruff clean
 
 **Результат:** ✅ apps/{profiles/tests.py,messaging/tests.py,messaging/views.py}, templates/{internships/form.html,profiles/builder.html}, scripts/build_translations.py, locale/*, conftest.py.
+
+
+---
+
+### [2026-08-23 16:40] Задача: Админка чатов/уведомлений/верификации + закрытие дыр покрытия
+**Статус:** 🔄 IN_PROGRESS
+**Агент:** ox-alpha (opencode)
+**Контекст:** Coverage-отчёт: 90%. Пустые admin у messaging/notifications; нет инструментов верификации компаний; непокрытые ветки: banned-login, ?next=, HX-partial чата, missing-participant в задаче.
+**Что делаю:**
+- [ ] Admin: Conversation/Message/Notification + actions верификации в CompanyAdmin
+- [ ] Тесты на непокрытые ветки (цель ≥95% без migrations/pdf)
+- [ ] Коммит
+
+**Прогресс:**
+
+**Ошибки:**
+
+**Решения:**

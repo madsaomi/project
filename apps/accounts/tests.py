@@ -1,3 +1,4 @@
+import pytest
 from django.contrib.auth import get_user_model
 from django.http import Http404, HttpResponse
 from django.test import RequestFactory, TestCase
@@ -219,3 +220,41 @@ class I18nTestCase(TestCase):
         cookie = response.cookies['django_language'].value
         response = self.client.get('/', HTTP_COOKIE=f'django_language={cookie}')
         self.assertContains(response, 'Stajirovkalar')
+
+
+
+class EdgeCasesTestCase(TestCase):
+    """Ветки: banned-логин, ?next=, защита роли admin при регистрации."""
+
+    @pytest.mark.django_db
+    def test_banned_user_cannot_login(self):
+        User.objects.create_user(
+            email='banned@test.com', username='bn', password='testpass123',
+            role=User.Role.STUDENT, is_banned=True,
+        )
+        response = self.client.post('/accounts/login/', {
+            'email': 'banned@test.com', 'password': 'testpass123',
+        })
+        self.assertEqual(response.status_code, 400)
+
+    @pytest.mark.django_db
+    def test_login_respects_next_param(self):
+        User.objects.create_user(
+            email='next@test.com', username='nx', password='testpass123',
+            role=User.Role.STUDENT,
+        )
+        response = self.client.post(
+            '/accounts/login/?next=/internships/my/',
+            {'email': 'next@test.com', 'password': 'testpass123'},
+        )
+        self.assertRedirects(response, '/internships/my/', fetch_redirect_response=False)
+
+    @pytest.mark.django_db
+    def test_register_admin_role_forced_to_student(self):
+        response = self.client.post('/accounts/register/', {
+            'email': 'hacker@evil.com', 'password': 'testpass123', 'role': 'admin',
+        })
+        self.assertEqual(response.status_code, 302)
+        user = User.objects.get(email='hacker@evil.com')
+        self.assertEqual(user.role, User.Role.STUDENT)
+        self.assertFalse(user.is_staff)
