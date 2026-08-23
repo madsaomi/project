@@ -416,3 +416,12 @@ _(нетривиальные архитектурные выборы — зап�
 **Ошибки:**
 
 **Решения:**
+
+**Прогресс:**
+- ✅ [17:00] Admin: Conversation (inline сообщений) / Message / Notification (readonly, без add) зарегистрированы
+- [x] CompanyAdmin: экшены verify_companies/reject_companies с verified_at и message_user
+- [x] Тесты +9: banned-логин, ?next=, role=admin→student при регистрации, дашборд без компании, повторный отклик молча, HTMX-partial чата/отправки, GET send → redirect, задача с несуществующим participant, экшены верификации
+- [x] Coverage: 90% → 91% (1573 statements); messaging/views остаётся 76% из-за редких redirect-веток
+- [x] Коммит 7877bd5. Итог: 64 passed, 0 warnings
+
+**Результат:** ✅ apps/{messaging/admin.py,notifications/admin.py,companies/admin.py}, apps/{accounts,internships,messaging,companies,notifications}/tests.py.
