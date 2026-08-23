@@ -1,0 +1,271 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: StudCareer\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Активна"
+msgstr "Active"
+
+msgid "Активные"
+msgstr "Active"
+
+msgid ""
+"Актуальные стажировки для студентов: удалённые и в офисе, оплачиваемые и с "
+"гибким графиком. Откликайся напрямую работодателям."
+msgstr ""
+"Current internships for students: remote and on-site, paid and flexible. "
+"Apply directly to employers."
+
+msgid "В процессе"
+msgstr "In progress"
+
+msgid "Ваши чаты с кандидатами"
+msgstr "Your chats with candidates"
+
+msgid "Ваши чаты с работодателями"
+msgstr "Your chats with employers"
+
+msgid "Вернуться ко входу"
+msgstr "Back to login"
+
+msgid "Войти"
+msgstr "Log in"
+
+msgid "Войти для отклика"
+msgstr "Log in to apply"
+
+msgid "Все категории"
+msgstr "All categories"
+
+msgid "Все права защищены."
+msgstr "All rights reserved."
+
+msgid "Всего откликов"
+msgstr "Total applications"
+
+msgid "Вход в аккаунт"
+msgstr "Log in"
+
+msgid "Вы откликнулись"
+msgstr "You have applied"
+
+msgid "Выйти"
+msgstr "Log out"
+
+msgid "Дашборд"
+msgstr "Dashboard"
+
+msgid "Дождитесь откликов студентов."
+msgstr "Wait for student applications."
+
+msgid "Должность или компания…"
+msgstr "Position or company…"
+
+msgid ""
+"Если аккаунт с таким email существует, мы отправили туда ссылку для сброса "
+"пароля. Проверьте почту (и папку «Спам»)."
+msgstr ""
+"If an account with this email exists, we've sent a password reset link to "
+"it. Check your inbox (and spam folder)."
+
+msgid "Забыли пароль?"
+msgstr "Forgot password?"
+
+msgid "Завершено"
+msgstr "Completed"
+
+msgid "Завершённые"
+msgstr "Completed"
+
+msgid "Закрыта"
+msgstr "Closed"
+
+msgid "Запросить заново"
+msgstr "Request again"
+
+msgid "Зарегистрироваться"
+msgstr "Sign up"
+
+msgid "Здесь появятся отклики и изменения статусов."
+msgstr "Applications and status changes will appear here."
+
+msgid "Изменить"
+msgstr "Edit"
+
+msgid "Кандидаты"
+msgstr "Candidates"
+
+msgid "Каталог стажировок"
+msgstr "Internship catalog"
+
+msgid "Категория"
+msgstr "Category"
+
+msgid "Ко входу"
+msgstr "To login"
+
+msgid "Мои стажировки"
+msgstr "My internships"
+
+msgid "Моя компания"
+msgstr "My company"
+
+msgid "На рассмотрении"
+msgstr "Pending"
+
+msgid "Найдите идеальную стажировку для старта карьеры"
+msgstr "Find the perfect internship to start your career"
+
+msgid "Найти стажировку"
+msgstr "Find an internship"
+
+msgid "Начни свою карьеру со"
+msgstr "Start your career with"
+
+msgid "Нет сообщений"
+msgstr "No messages yet"
+
+msgid "Ничего не найдено"
+msgstr "Nothing found"
+
+msgid "Новая стажировка"
+msgstr "New internship"
+
+msgid "Новые отклики"
+msgstr "New applications"
+
+msgid "Новый пароль"
+msgstr "New password"
+
+msgid "Обязанности"
+msgstr "Responsibilities"
+
+msgid "Описание стажировки"
+msgstr "About the internship"
+
+msgid "Оплачиваемая"
+msgstr "Paid"
+
+msgid "Отклики и текущий статус по каждому"
+msgstr "Your applications and their current status"
+
+msgid "Откликнитесь на стажировку, чтобы начать общение."
+msgstr "Apply for an internship to start a conversation."
+
+msgid "Откликнуться"
+msgstr "Apply now"
+
+msgid "Отправить ссылку"
+msgstr "Send link"
+
+msgid "Пароль"
+msgstr "Password"
+
+msgid "Пароль изменён"
+msgstr "Password changed"
+
+msgid "Письмо отправлено"
+msgstr "Email sent"
+
+msgid "Подробнее"
+msgstr "Details"
+
+msgid "Поиск"
+msgstr "Search"
+
+msgid "Попробуйте изменить параметры фильтра."
+msgstr "Try adjusting the filters."
+
+msgid "Последние события по вашим стажировкам"
+msgstr "Latest updates on your internships"
+
+msgid "Придумайте новый пароль"
+msgstr "Choose a new password"
+
+msgid "Проверьте почту"
+msgstr "Check your inbox"
+
+msgid "Прочитать все"
+msgstr "Mark all as read"
+
+msgid "Работодатель"
+msgstr "Employer"
+
+msgid "Регистрация"
+msgstr "Sign up"
+
+msgid "Роль"
+msgstr "Role"
+
+msgid "Сброс пароля"
+msgstr "Password reset"
+
+msgid "Создать стажировку"
+msgstr "Post an internship"
+
+msgid "Сообщения"
+msgstr "Messages"
+
+msgid "Сохранить пароль"
+msgstr "Save password"
+
+msgid ""
+"Ссылка для сброса устарела или уже была использована. Запросите сброс пароля"
+" ещё раз."
+msgstr ""
+"The reset link has expired or was already used. Please request a new one."
+
+msgid "Ссылка недействительна"
+msgstr "Invalid link"
+
+msgid "Стажировки"
+msgstr "Internships"
+
+msgid "Студент"
+msgstr "Student"
+
+msgid "Теперь войдите с новым паролем."
+msgstr "Now log in with your new password."
+
+msgid "Только студенты могут откликаться на стажировки."
+msgstr "Only students can apply for internships."
+
+msgid "Требования"
+msgstr "Requirements"
+
+msgid "У вас ещё нет стажировок — опубликуйте первую."
+msgstr "You have no internships yet — post your first one."
+
+msgid "У вас пока нет чатов"
+msgstr "You don't have any chats yet"
+
+msgid "Уведомлений пока нет"
+msgstr "No notifications yet"
+
+msgid "Уведомления"
+msgstr "Notifications"
+
+msgid "Укажите email — пришлём ссылку для создания нового пароля."
+msgstr "Enter your email and we will send you a link to set a new password."
+
+msgid "Управление откликами на ваши стажировки"
+msgstr "Manage applications to your internships"
+
+msgid "Фильтры"
+msgstr "Filters"
+
+msgid "Я работодатель"
+msgstr "I'm an employer"
+
+msgid "новое"
+msgstr "new"
+
+msgid "откл."
+msgstr "apps"
+
+msgid "стажировки для студентов"
+msgstr "internships for students"

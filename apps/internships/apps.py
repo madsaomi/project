@@ -6,4 +6,4 @@ class InternshipsConfig(AppConfig):
     name = 'apps.internships'
 
     def ready(self):
-        import apps.internships.signals
+        import apps.internships.signals  # noqa: F401

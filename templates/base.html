@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}StudCareer{% endblock %}</title>
+    <title>{% block title %}StudCareer — стажировки для студентов{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}StudCareer — платформа стажировок для студентов. Найдите стажировку, получите опыт и автоматически добавьте его в резюме.{% endblock %}">
+    <meta property="og:title" content="{% block og_title %}StudCareer — стажировки для студентов{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}StudCareer — платформа стажировок для студентов. Найдите стажировку, получите опыт и автоматически добавьте его в резюме.{% endblock %}">
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}">
     
     <!-- Tailwind CSS (Play CDN for MVP) -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -29,6 +33,12 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <!-- HTMX -->
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <script>
+        document.addEventListener('htmx:configRequest', (event) => {
+            event.detail.headers['X-CSRFToken'] = document.querySelector('meta[name="csrf-token"]').content;
+        });
+    </script>
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">

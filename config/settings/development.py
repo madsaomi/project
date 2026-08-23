@@ -11,3 +11,7 @@ CELERY_RESULT_BACKEND = 'redis://localhost:6379/2'
 
 # Email backend for dev
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Локально Redis обычно не запущен — задачи Celery выполняются синхронно.
+# На проде (config.settings.production) НЕ отключено.
+CELERY_TASK_ALWAYS_EAGER = True

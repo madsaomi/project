@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
-{% block title %}Сообщения{% endblock %}
+{% block title %}{% translate "Сообщения" %}{% endblock %}
 
 {% block content %}
 <div class="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
     <div class="mb-8 flex justify-between items-end">
         <div>
-            <h1 class="text-3xl font-bold text-gray-900">Сообщения</h1>
-            <p class="mt-2 text-sm text-gray-500">Ваши чаты с {% if user.role == 'student' %}работодателями{% else %}кандидатами{% endif %}</p>
+            <h1 class="text-3xl font-bold text-gray-900">{% translate "Сообщения" %}</h1>
+            <p class="mt-2 text-sm text-gray-500">{% if user.role == 'student' %}{% translate "Ваши чаты с работодателями" %}{% else %}{% translate "Ваши чаты с кандидатами" %}{% endif %}</p>
         </div>
     </div>
     
@@ -31,36 +32,32 @@
                                     {{ conv.student.student_profile.full_name|default:conv.student.email }}
                                 {% endif %}
                             </h3>
-                            {% with last_msg=conv.messages.last %}
-                                {% if last_msg %}
-                                    <p class="text-sm text-gray-500 truncate max-w-md">
-                                        {% if last_msg.sender == user %}Вы: {% endif %}
-                                        {{ last_msg.content }}
-                                    </p>
-                                {% else %}
-                                    <p class="text-sm text-gray-400 italic">Нет сообщений</p>
-                                {% endif %}
-                            {% endwith %}
+                            {% if conv.last_message_content %}
+                                <p class="text-sm text-gray-500 truncate max-w-md">
+                                    {% if conv.last_message_sender_id == user.pk %}Вы: {% endif %}
+                                    {{ conv.last_message_content }}
+                                </p>
+                            {% else %}
+                                <p class="text-sm text-gray-400 italic">{% translate "Нет сообщений" %}</p>
+                            {% endif %}
                         </div>
                     </div>
-                    {% with last_msg=conv.messages.last %}
-                        {% if last_msg %}
-                            <div class="text-xs text-gray-400 whitespace-nowrap">
-                                {{ last_msg.created_at|date:"d M H:i" }}
-                            </div>
-                        {% endif %}
-                    {% endwith %}
+                    {% if conv.last_message_at %}
+                        <div class="text-xs text-gray-400 whitespace-nowrap">
+                            {{ conv.last_message_at|date:"d M H:i" }}
+                        </div>
+                    {% endif %}
                 </div>
             </a>
         {% empty %}
             <div class="p-12 text-center">
                 <i data-lucide="message-square" class="mx-auto w-12 h-12 text-gray-300 mb-4"></i>
-                <h3 class="text-lg font-medium text-gray-900">У вас пока нет чатов</h3>
+                <h3 class="text-lg font-medium text-gray-900">{% translate "У вас пока нет чатов" %}</h3>
                 <p class="mt-1 text-sm text-gray-500">
                     {% if user.role == 'student' %}
-                        Откликнитесь на стажировку, чтобы начать общение.
+                        {% translate "Откликнитесь на стажировку, чтобы начать общение." %}
                     {% else %}
-                        Дождитесь откликов студентов.
+                        {% translate "Дождитесь откликов студентов." %}
                     {% endif %}
                 </p>
             </div>

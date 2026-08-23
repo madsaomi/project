@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {% if is_edit %}Редактирование: {{ internship.title }}{% else %}Новая стажировка{% endif %} — StudCareer
+{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 sm:p-10">
+        <div class="mb-8">
+            <h1 class="text-2xl font-bold text-gray-900">
+                {% if is_edit %}Редактирование стажировки{% else %}Публикация стажировки{% endif %}
+            </h1>
+            <p class="mt-2 text-sm text-gray-500">
+                {% if is_edit %}
+                    Изменения сразу видны студентам. Снимите галочку «Активна», чтобы закрыть набор.
+                {% else %}
+                    Заполните детали, чтобы привлечь лучших студентов.
+                {% endif %}
+            </p>
+        </div>
+
+        {% if form.non_field_errors or form.errors %}
+        <div class="mb-6 rounded-lg bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">
+            <ul class="list-disc list-inside space-y-1">
+                {% for error in form.non_field_errors %}<li>{{ error }}</li>{% endfor %}
+                {% for field in form %}
+                    {% for error in field.errors %}<li>{{ field.label }}: {{ error }}</li>{% endfor %}
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        <form method="post" action="." class="space-y-6">
+            {% csrf_token %}
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700">{{ form.title.label }}</label>
+                {{ form.title }}
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">{{ form.internship_type.label }}</label>
+                    {{ form.internship_type }}
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">{{ form.work_format.label }}</label>
+                    {{ form.work_format }}
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">{{ form.category.label }}</label>
+                    {{ form.category }}
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700">{{ form.description.label }}</label>
+                {{ form.description }}
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700">{{ form.requirements.label }}</label>
+                {{ form.requirements }}
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700">{{ form.responsibilities.label }}</label>
+                {{ form.responsibilities }}
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700">{{ form.benefits.label }}</label>
+                {{ form.benefits }}
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">{{ form.duration_months.label }}</label>
+                    {{ form.duration_months }}
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">{{ form.deadline.label }}</label>
+                    {{ form.deadline }}
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">{{ form.location.label }}</label>
+                    {{ form.location }}
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">{{ form.salary_amount.label }}</label>
+                    {{ form.salary_amount }}
+                </div>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-6 pt-2 border-t border-gray-100">
+                <label class="flex items-center">
+                    {{ form.is_paid }}
+                    <span class="ml-2 text-sm text-gray-700">{{ form.is_paid.label }}</span>
+                </label>
+                {% if is_edit %}
+                <label class="flex items-center">
+                    {{ form.is_active }}
+                    <span class="ml-2 text-sm text-gray-700">{{ form.is_active.label }} (видна в каталоге)</span>
+                </label>
+                {% endif %}
+            </div>
+
+            <div class="pt-6 border-t border-gray-100 flex justify-end gap-3">
+                <a href="{% url 'internships:dashboard' %}" class="px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 transition-colors">
+                    Отмена
+                </a>
+                <button type="submit" class="px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 transition-colors">
+                    {% if is_edit %}Сохранить{% else %}Опубликовать{% endif %}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

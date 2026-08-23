@@ -1,6 +1,7 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.db.models import CASCADE, SET_NULL
-from django.contrib.auth import get_user_model
+
 from apps.companies.models import Company
 
 User = get_user_model()
@@ -86,3 +87,12 @@ class InternshipParticipant(models.Model):
 
     class Meta:
         unique_together = ['internship', 'student']
+
+    @property
+    def conversation(self):
+        """Диалог студент↔компания, если уже создан (при отклике)."""
+        from apps.messaging.models import Conversation
+
+        return Conversation.objects.filter(
+            company=self.internship.company, student=self.student
+        ).first()

@@ -1,0 +1,272 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: StudCareer\n"
+"Language: uz\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Активна"
+msgstr "Faol"
+
+msgid "Активные"
+msgstr "Faol"
+
+msgid ""
+"Актуальные стажировки для студентов: удалённые и в офисе, оплачиваемые и с "
+"гибким графиком. Откликайся напрямую работодателям."
+msgstr ""
+"Talabalar uchun dolzarb stajirovkalar: masofaviy va ofisdagi, to‘lanadigan "
+"va moslashuvchan jadval bilan."
+
+msgid "В процессе"
+msgstr "Jarayonda"
+
+msgid "Ваши чаты с кандидатами"
+msgstr "Nomzodlar bilan suhbatlaringiz"
+
+msgid "Ваши чаты с работодателями"
+msgstr "Ish beruvchilar bilan suhbatlaringiz"
+
+msgid "Вернуться ко входу"
+msgstr "Kirish sahifasiga qaytish"
+
+msgid "Войти"
+msgstr "Kirish"
+
+msgid "Войти для отклика"
+msgstr "Ariza uchun kiring"
+
+msgid "Все категории"
+msgstr "Barcha kategoriyalar"
+
+msgid "Все права защищены."
+msgstr "Barcha huquqlar himoyalangan."
+
+msgid "Всего откликов"
+msgstr "Jami arizalar"
+
+msgid "Вход в аккаунт"
+msgstr "Hisobga kirish"
+
+msgid "Вы откликнулись"
+msgstr "Siz ariza topshirdingiz"
+
+msgid "Выйти"
+msgstr "Chiqish"
+
+msgid "Дашборд"
+msgstr "Boshqaruv paneli"
+
+msgid "Дождитесь откликов студентов."
+msgstr "Talabalarning arizalarini kutib turing."
+
+msgid "Должность или компания…"
+msgstr "Lavozim yoki kompaniya…"
+
+msgid ""
+"Если аккаунт с таким email существует, мы отправили туда ссылку для сброса "
+"пароля. Проверьте почту (и папку «Спам»)."
+msgstr ""
+"Bunday email bilan hisob mavjud bo‘lsa, parolni tiklash havolasini yubordik."
+" Pochtani (va «Spam» papkasini) tekshiring."
+
+msgid "Забыли пароль?"
+msgstr "Parolni eslay olmaysizmi?"
+
+msgid "Завершено"
+msgstr "Yakunlangan"
+
+msgid "Завершённые"
+msgstr "Yakunlangan"
+
+msgid "Закрыта"
+msgstr "Yopiq"
+
+msgid "Запросить заново"
+msgstr "Yana so‘rash"
+
+msgid "Зарегистрироваться"
+msgstr "Ro‘yxatdan o‘tish"
+
+msgid "Здесь появятся отклики и изменения статусов."
+msgstr "Bu yerda arizalar va holat o‘zgarishlari paydo bo‘ladi."
+
+msgid "Изменить"
+msgstr "Tahrirlash"
+
+msgid "Кандидаты"
+msgstr "Nomzodlar"
+
+msgid "Каталог стажировок"
+msgstr "Stajirovkalar katalogi"
+
+msgid "Категория"
+msgstr "Kategoriya"
+
+msgid "Ко входу"
+msgstr "Kirishga"
+
+msgid "Мои стажировки"
+msgstr "Mening stajirovklarim"
+
+msgid "Моя компания"
+msgstr "Kompaniyam"
+
+msgid "На рассмотрении"
+msgstr "Ko‘rib chiqilmoqda"
+
+msgid "Найдите идеальную стажировку для старта карьеры"
+msgstr "Karyerani boshlash uchun ideal stajirovkani toping"
+
+msgid "Найти стажировку"
+msgstr "Stajirovka topish"
+
+msgid "Начни свою карьеру со"
+msgstr "Karyerangizni bilan boshlang:"
+
+msgid "Нет сообщений"
+msgstr "Xabarlar yo‘q"
+
+msgid "Ничего не найдено"
+msgstr "Hech narsa topilmadi"
+
+msgid "Новая стажировка"
+msgstr "Yangi stajirovka"
+
+msgid "Новые отклики"
+msgstr "Yangi arizalar"
+
+msgid "Новый пароль"
+msgstr "Yangi parol"
+
+msgid "Обязанности"
+msgstr "Vazifalar"
+
+msgid "Описание стажировки"
+msgstr "Stajirovka tavsifi"
+
+msgid "Оплачиваемая"
+msgstr "To‘lanadigan"
+
+msgid "Отклики и текущий статус по каждому"
+msgstr "Har biri bo‘yicha arizalar va joriy holat"
+
+msgid "Откликнитесь на стажировку, чтобы начать общение."
+msgstr "Suhbatni boshlash uchun stajirovkaga ariza yuboring."
+
+msgid "Откликнуться"
+msgstr "Ariza yuborish"
+
+msgid "Отправить ссылку"
+msgstr "Havolani yuborish"
+
+msgid "Пароль"
+msgstr "Parol"
+
+msgid "Пароль изменён"
+msgstr "Parol o‘zgartirildi"
+
+msgid "Письмо отправлено"
+msgstr "Xabar yuborildi"
+
+msgid "Подробнее"
+msgstr "Batafsil"
+
+msgid "Поиск"
+msgstr "Qidirish"
+
+msgid "Попробуйте изменить параметры фильтра."
+msgstr "Filtrlar parametrlarini o‘zgartirib ko‘ring."
+
+msgid "Последние события по вашим стажировкам"
+msgstr "Stajirovkalaringiz bo‘yicha so‘nggi hodisalar"
+
+msgid "Придумайте новый пароль"
+msgstr "Yangi parol o‘ylab toping"
+
+msgid "Проверьте почту"
+msgstr "Pochtangizni tekshiring"
+
+msgid "Прочитать все"
+msgstr "Hammasini o‘qilgan deb belgilash"
+
+msgid "Работодатель"
+msgstr "Ish beruvchi"
+
+msgid "Регистрация"
+msgstr "Ro‘yxatdan o‘tish"
+
+msgid "Роль"
+msgstr "Rol"
+
+msgid "Сброс пароля"
+msgstr "Parolni tiklash"
+
+msgid "Создать стажировку"
+msgstr "Stajirovka yaratish"
+
+msgid "Сообщения"
+msgstr "Xabarlar"
+
+msgid "Сохранить пароль"
+msgstr "Parolni saqlash"
+
+msgid ""
+"Ссылка для сброса устарела или уже была использована. Запросите сброс пароля"
+" ещё раз."
+msgstr ""
+"Tiklash havolasi eskirgan yoki allaqachon ishlatilgan. Parolni tiklashni "
+"yana so‘rang."
+
+msgid "Ссылка недействительна"
+msgstr "Havola yaroqsiz"
+
+msgid "Стажировки"
+msgstr "Stajirovkalar"
+
+msgid "Студент"
+msgstr "Talaba"
+
+msgid "Теперь войдите с новым паролем."
+msgstr "Endi yangi parol bilan kiring."
+
+msgid "Только студенты могут откликаться на стажировки."
+msgstr "Faqat talabalar stajirovkalarga ariza topshirishi mumkin."
+
+msgid "Требования"
+msgstr "Talablar"
+
+msgid "У вас ещё нет стажировок — опубликуйте первую."
+msgstr "Sizda hali stajirovka yo‘q — birinchisini e’lon qiling."
+
+msgid "У вас пока нет чатов"
+msgstr "Sizda hali chatlar yo‘q"
+
+msgid "Уведомлений пока нет"
+msgstr "Hali bildirishnomalar yo‘q"
+
+msgid "Уведомления"
+msgstr "Bildirishnomalar"
+
+msgid "Укажите email — пришлём ссылку для создания нового пароля."
+msgstr "Email kiriting — yangi parol uchun havola yuboramiz."
+
+msgid "Управление откликами на ваши стажировки"
+msgstr "Stajirovkalaringizga kelib tushgan arizalarni boshqarish"
+
+msgid "Фильтры"
+msgstr "Filtrlar"
+
+msgid "Я работодатель"
+msgstr "Men ish beruvchiman"
+
+msgid "новое"
+msgstr "yangi"
+
+msgid "откл."
+msgstr "ariza"
+
+msgid "стажировки для студентов"
+msgstr "talabalar uchun stajirovkalar"

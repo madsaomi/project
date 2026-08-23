@@ -1,21 +1,40 @@
-from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q
+from django.db.models import OuterRef, Subquery
+from django.shortcuts import get_object_or_404, redirect, render
+
 from .models import Conversation, Message
-from apps.companies.models import Company
+
+
+def _annotate_last_message(queryset):
+    last_msg = Message.objects.filter(
+        conversation=OuterRef('pk')
+    ).order_by('-created_at')
+    return queryset.annotate(
+        last_message_content=Subquery(last_msg.values('content')[:1]),
+        last_message_at=Subquery(last_msg.values('created_at')[:1]),
+        last_message_sender_id=Subquery(last_msg.values('sender_id')[:1]),
+    )
+
 
 @login_required
 def chat_list(request):
+    """Список чатов пользователя (без N+1 на последнее сообщение)."""
     if request.user.role == 'student':
-        conversations = request.user.student_conversations.all().select_related('company')
+        conversations = _annotate_last_message(
+            request.user.student_conversations.select_related('company')
+        )
     elif request.user.role == 'employer':
-        # Ensure company exists
         if not hasattr(request.user, 'company'):
-            return render(request, 'messaging/list.html', {'conversations': []})
-        conversations = request.user.company.conversations.all().select_related('student', 'student__student_profile')
+            conversations = Conversation.objects.none()
+        else:
+            conversations = _annotate_last_message(
+                request.user.company.conversations.select_related(
+                    'student', 'student__student_profile'
+                )
+            )
     else:
-        conversations = []
-        
+        conversations = Conversation.objects.none()
+
     return render(request, 'messaging/list.html', {'conversations': conversations})
 
 @login_required
@@ -30,12 +49,15 @@ def chat_detail(request, pk):
         return redirect('core:home')
 
     messages = conversation.messages.all().order_by('created_at')
-    
+
     # Mark as read
     messages.exclude(sender=request.user).update(is_read=True)
 
     if request.headers.get('HX-Request'):
-        return render(request, 'messaging/_message_feed.html', {'messages': messages, 'conversation': conversation})
+        return render(request, 'messaging/_message_feed.html', {
+            'messages': messages,
+            'conversation': conversation,
+        })
 
     return render(request, 'messaging/chat.html', {
         'conversation': conversation,
@@ -47,7 +69,7 @@ def chat_detail(request, pk):
 def send_message(request, pk):
     if request.method != 'POST':
         return redirect('messaging:detail', pk=pk)
-        
+
     content = request.POST.get('content', '').strip()
     if not content:
         return redirect('messaging:detail', pk=pk)
@@ -64,7 +86,10 @@ def send_message(request, pk):
         sender=request.user,
         content=content
     )
-    
+
     # Return updated message feed for HTMX
     messages = conversation.messages.all().order_by('created_at')
-    return render(request, 'messaging/_message_feed.html', {'messages': messages, 'conversation': conversation})
+    return render(request, 'messaging/_message_feed.html', {
+        'messages': messages,
+        'conversation': conversation,
+    })

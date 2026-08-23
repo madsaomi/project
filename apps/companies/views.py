@@ -1,8 +1,13 @@
-from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, redirect, render
+
+from apps.accounts.decorators import employer_required
+
 from .models import Company
 
+
 @login_required
+@employer_required
 def profile_edit(request):
     company, created = Company.objects.get_or_create(user=request.user)
     if request.method == 'POST':

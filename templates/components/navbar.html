@@ -1,3 +1,4 @@
+{% load i18n %}
 <nav class="bg-white shadow-sm sticky top-0 z-40">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -7,28 +8,55 @@
                 </a>
                 <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
                     <a href="{% url 'internships:catalog' %}" class="border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                        Стажировки
-                    </a>
-                    <a href="{% url 'companies:list' %}" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                        Компании
+                        {% translate "Стажировки" %}
                     </a>
                 </div>
             </div>
             <div class="flex items-center space-x-4">
                 {% if user.is_authenticated %}
-                    <a href="{% url 'messaging:list' %}" class="text-gray-500 hover:text-indigo-600 text-sm font-medium transition">
-                        <i data-lucide="message-square" class="w-5 h-5 inline-block mr-1"></i>Сообщения
+                    <a href="{% url 'notifications:list' %}" class="relative text-gray-500 hover:text-indigo-600 transition" title="{% translate 'Уведомления' %}">
+                        <i data-lucide="bell" class="w-5 h-5"></i>
+                        {% if unread_count %}
+                            <span class="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[10px] font-bold min-w-[16px] h-4 px-1 rounded-full flex items-center justify-center">
+                                {{ unread_count }}
+                            </span>
+                        {% endif %}
                     </a>
+                    <a href="{% url 'messaging:list' %}" class="text-gray-500 hover:text-indigo-600 text-sm font-medium transition">
+                        <i data-lucide="message-square" class="w-5 h-5 inline-block mr-1"></i>{% translate "Сообщения" %}
+                    </a>
+                    {% if user.role == 'student' %}
+                        <a href="{% url 'internships:my_internships' %}" class="text-gray-500 hover:text-indigo-600 text-sm font-medium transition">{% translate "Мои стажировки" %}</a>
+                    {% endif %}
                     {% if user.role == 'employer' %}
-                        <a href="{% url 'internships:dashboard' %}" class="text-gray-500 hover:text-indigo-600 text-sm font-medium transition">Дашборд</a>
-                        <a href="{% url 'internships:create' %}" class="bg-indigo-50 text-indigo-700 px-3 py-1 rounded-md text-sm font-medium hover:bg-indigo-100 transition">Создать стажировку</a>
+                        <a href="{% url 'companies:profile_edit' %}" class="text-gray-500 hover:text-indigo-600 text-sm font-medium transition">{% translate "Моя компания" %}</a>
+                        <a href="{% url 'internships:dashboard' %}" class="text-gray-500 hover:text-indigo-600 text-sm font-medium transition">{% translate "Дашборд" %}</a>
+                        <a href="{% url 'internships:create' %}" class="bg-indigo-50 text-indigo-700 px-3 py-1 rounded-md text-sm font-medium hover:bg-indigo-100 transition">{% translate "Создать стажировку" %}</a>
                     {% endif %}
                     <span class="text-sm text-gray-700 ml-4">{{ user.email }}</span>
-                    <a href="{% url 'accounts:logout' %}" class="text-gray-500 hover:text-indigo-600 text-sm font-medium transition">Выйти</a>
+                    <form method="post" action="{% url 'accounts:logout' %}" class="inline">
+                        {% csrf_token %}
+                        <button type="submit" class="text-gray-500 hover:text-indigo-600 text-sm font-medium transition">{% translate "Выйти" %}</button>
+                    </form>
                 {% else %}
-                    <a href="{% url 'accounts:login' %}" class="text-gray-500 hover:text-indigo-600 text-sm font-medium transition">Войти</a>
-                    <a href="{% url 'accounts:register' %}" class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-700 transition">Зарегистрироваться</a>
+                    <a href="{% url 'accounts:login' %}" class="text-gray-500 hover:text-indigo-600 text-sm font-medium transition">{% translate "Войти" %}</a>
+                    <a href="{% url 'accounts:register' %}" class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-700 transition">{% translate "Зарегистрироваться" %}</a>
                 {% endif %}
+
+                {% get_current_language as LANGUAGE_CODE %}
+                <form action="{% url 'set_language' %}" method="post" class="inline">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ request.path }}">
+                    <select name="language"
+                            onchange="this.form.submit()"
+                            class="text-xs border-gray-200 rounded-md bg-gray-50 py-1 px-1.5 focus:ring-indigo-500 focus:border-indigo-500">
+                        {% for lang_code, lang_name in LANGUAGES %}
+                            <option value="{{ lang_code }}" {% if lang_code == LANGUAGE_CODE %}selected{% endif %}>
+                                {{ lang_name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </form>
             </div>
         </div>
     </div>

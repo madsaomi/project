@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models import StudentProfile, Skill, LanguageSkill, InternshipExperience
+
+from .models import InternshipExperience, LanguageSkill, Skill, StudentProfile
+
 
 @admin.register(StudentProfile)
 class StudentProfileAdmin(admin.ModelAdmin):

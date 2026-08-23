@@ -1,11 +1,12 @@
+{% load i18n %}
 <div class="space-y-4">
     {% for internship in internships %}
         {% include 'internships/_card.html' %}
     {% empty %}
         <div class="text-center py-12 bg-white rounded-xl shadow-sm border border-gray-100">
             <i data-lucide="search-x" class="mx-auto h-12 w-12 text-gray-400"></i>
-            <h3 class="mt-2 text-sm font-medium text-gray-900">Ничего не найдено</h3>
-            <p class="mt-1 text-sm text-gray-500">Попробуйте изменить параметры фильтра.</p>
+            <h3 class="mt-2 text-sm font-medium text-gray-900">{% translate "Ничего не найдено" %}</h3>
+            <p class="mt-1 text-sm text-gray-500">{% translate "Попробуйте изменить параметры фильтра." %}</p>
         </div>
     {% endfor %}
 </div>

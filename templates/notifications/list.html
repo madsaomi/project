@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% translate "Уведомления" %} — StudCareer{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between mb-8">
+        <div>
+            <h1 class="text-3xl font-bold text-gray-900">{% translate "Уведомления" %}</h1>
+            <p class="mt-1 text-sm text-gray-500">{% translate "Последние события по вашим стажировкам" %}</p>
+        </div>
+        {% if unread_count %}
+        <form method="post" action="{% url 'notifications:mark_all_read' %}">
+            {% csrf_token %}
+            <button type="submit" class="inline-flex items-center gap-2 px-4 py-2 border border-indigo-200 bg-indigo-50 text-indigo-700 text-sm font-medium rounded-lg hover:bg-indigo-100 transition">
+                <i data-lucide="check-check" class="w-4 h-4"></i>
+                {% translate "Прочитать все" %}
+            </button>
+        </form>
+        {% endif %}
+    </div>
+
+    {% if items %}
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 divide-y divide-gray-100">
+        {% for n in items %}
+        <div class="p-5 flex items-start gap-4 {% if not n.is_read %}bg-indigo-50/40{% endif %}">
+            <span class="shrink-0 mt-0.5">
+                <i data-lucide="{% if not n.is_read %}bell-ring{% else %}bell{% endif %}"
+                   class="w-5 h-5 {% if not n.is_read %}text-indigo-600{% else %}text-gray-400{% endif %}"></i>
+            </span>
+            <div class="min-w-0 flex-grow">
+                {% if n.url %}
+                    <a href="{{ n.url }}" class="text-sm text-gray-900 hover:text-indigo-600 transition">{{ n.message }}</a>
+                {% else %}
+                    <span class="text-sm text-gray-900">{{ n.message }}</span>
+                {% endif %}
+                <div class="text-xs text-gray-400 mt-1">{{ n.created_at|date:'d.m.Y H:i' }}
+                    {% if not n.is_read %}<span class="ml-2 text-indigo-500 font-medium">{% translate "новое" %}</span>{% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="text-center py-16 bg-white rounded-xl shadow-sm border border-gray-100">
+        <i data-lucide="bell-off" class="mx-auto h-12 w-12 text-gray-400"></i>
+        <h3 class="mt-2 text-sm font-medium text-gray-900">{% translate "Уведомлений пока нет" %}</h3>
+        <p class="mt-1 text-sm text-gray-500">{% translate "Здесь появятся отклики и изменения статусов." %}</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

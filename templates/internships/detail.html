@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
-{% block title %}{{ internship.title }} | StudCareer{% endblock %}
+{% block title %}{{ internship.title }} — {{ internship.company.name }} | StudCareer{% endblock %}
+
+{% block meta_description %}{{ internship.description|striptags|truncatechars:160 }}{% endblock %}
+{% block og_type %}article{% endblock %}
 
 {% block content %}
 <div class="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
@@ -37,7 +41,7 @@
                         {% if internship.is_paid %}
                             <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-medium bg-green-50 text-green-700">
                                 <i data-lucide="banknote" class="w-4 h-4 text-green-600"></i>
-                                Оплачиваемая
+                                {% translate "Оплачиваемая" %}
                             </span>
                         {% endif %}
                     </div>
@@ -48,7 +52,7 @@
         <!-- Body -->
         <div class="p-8 sm:p-10 space-y-8">
             <section>
-                <h2 class="text-xl font-semibold text-gray-900 mb-4">Описание стажировки</h2>
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">{% translate "Описание стажировки" %}</h2>
                 <div class="prose prose-indigo max-w-none text-gray-600">
                     {{ internship.description|linebreaks }}
                 </div>
@@ -56,7 +60,7 @@
             
             {% if internship.requirements %}
             <section>
-                <h2 class="text-xl font-semibold text-gray-900 mb-4">Требования</h2>
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">{% translate "Требования" %}</h2>
                 <div class="prose prose-indigo max-w-none text-gray-600">
                     {{ internship.requirements|linebreaks }}
                 </div>
@@ -65,7 +69,7 @@
 
             {% if internship.responsibilities %}
             <section>
-                <h2 class="text-xl font-semibold text-gray-900 mb-4">Обязанности</h2>
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">{% translate "Обязанности" %}</h2>
                 <div class="prose prose-indigo max-w-none text-gray-600">
                     {{ internship.responsibilities|linebreaks }}
                 </div>

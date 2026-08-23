@@ -14,8 +14,9 @@ def send_status_change_email(self, participant_id, new_status):
     Уведомить студента об изменении статуса отклика.
     Вызывается: при смене InternshipParticipant.status.
     """
-    from apps.internships.models import InternshipParticipant
     from django.core.mail import send_mail
+
+    from apps.internships.models import InternshipParticipant
 
     try:
         participant = InternshipParticipant.objects.select_related(
@@ -28,7 +29,10 @@ def send_status_change_email(self, participant_id, new_status):
     # In production, use template rendering for emails
     send_mail(
         subject=f'Статус вашего отклика изменён: {new_status}',
-        message=f'Ваш отклик на "{participant.internship.title}" теперь имеет статус: {new_status}.',
+        message=(
+            f'Ваш отклик на "{participant.internship.title}" '
+            f'теперь имеет статус: {new_status}.'
+        ),
         from_email='noreply@studcareer.uz',
         recipient_list=[participant.student.email],
     )
