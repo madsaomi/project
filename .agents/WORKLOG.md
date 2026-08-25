@@ -385,17 +385,15 @@ _(нетривиальные архитектурные выборы — зап�
 - [ ] Каталоги + пересборка, тесты, коммит
 
 **Прогресс:**
+- ✅ [16:25] Тесты +8: profiles (builder create/save, export_docx, приватный viewer), messaging (detail доступ, HTMX send, пустое сообщение, чужой работодатель → redirect)
+- ✅ 🐛 ТЕСТ ПОЙМАЛ БАГ: работодатель БЕЗ компании получал 500 в /messages/<pk>/ (request.user.company без hasattr-проверки в chat_detail и send_message). Исправлено redirect на главную
+- ✅ i18n: обёрнуты form.html (заголовки/кнопки) и builder.html (все поля); каталоги 84 → 103 строки × {uz,en}
+- ✅ conftest: UserFactory переведён на factory.django.Password + skip_postgeneration_save — 0 warnings
+- ✅ Итог: 55 passed, 0 warnings, ruff clean
 
 **Ошибки:**
 
 **Решения:**
-
-**Прогресс:**
-- ✅ [16:25] Тесты +8: profiles (builder create/save, export_docx, приватный viewer), messaging (detail доступ, HTMX send, пустое сообщение, чужой работодатель → redirect)
-- [x] 🐛 ТЕСТ ПОЙМАЛ БАГ: работодатель БЕЗ компании получал 500 в /messages/<pk>/ (request.user.company без hasattr-проверки в chat_detail и send_message). Исправлено redirect на главную
-- [x] i18n: обёрнуты form.html (заголовки/кнопки) и builder.html (все поля); каталоги 84 → 103 строки × {uz,en}
-- [x] conftest: UserFactory переведён на factory.django.Password + skip_postgeneration_save — 0 warnings
-- [x] Итог: 55 passed, 0 warnings, ruff clean
 
 **Результат:** ✅ apps/{profiles/tests.py,messaging/tests.py,messaging/views.py}, templates/{internships/form.html,profiles/builder.html}, scripts/build_translations.py, locale/*, conftest.py.
 
@@ -412,16 +410,33 @@ _(нетривиальные архитектурные выборы — зап�
 - [ ] Коммит
 
 **Прогресс:**
+- ✅ [17:00] Admin: Conversation (inline сообщений) / Message / Notification (readonly, без add) зарегистрированы
+- ✅ CompanyAdmin: экшены verify_companies/reject_companies с verified_at и message_user
+- ✅ Тесты +9: banned-логин, ?next=, role=admin→student при регистрации, дашборд без компании, повторный отклик молча, HTMX-partial чата/отправки, GET send → redirect, задача с несуществующим participant, экшены верификации
+- ✅ Coverage: 90% → 91% (1573 statements); messaging/views остаётся 76% из-за редких redirect-веток
+- ✅ Коммит 7877bd5. Итог: 64 passed, 0 warnings
 
 **Ошибки:**
 
 **Решения:**
 
-**Прогресс:**
-- ✅ [17:00] Admin: Conversation (inline сообщений) / Message / Notification (readonly, без add) зарегистрированы
-- [x] CompanyAdmin: экшены verify_companies/reject_companies с verified_at и message_user
-- [x] Тесты +9: banned-логин, ?next=, role=admin→student при регистрации, дашборд без компании, повторный отклик молча, HTMX-partial чата/отправки, GET send → redirect, задача с несуществующим participant, экшены верификации
-- [x] Coverage: 90% → 91% (1573 statements); messaging/views остаётся 76% из-за редких redirect-веток
-- [x] Коммит 7877bd5. Итог: 64 passed, 0 warnings
-
 **Результат:** ✅ apps/{messaging/admin.py,notifications/admin.py,companies/admin.py}, apps/{accounts,internships,messaging,companies,notifications}/tests.py.
+
+---
+
+### [2026-08-23 18:00] Задача: GitHub Actions CI
+**Статус:** ✅ DONE
+**Агент:** ox-alpha (opencode)
+**Контекст:** 64 теста и бюджеты запросов должны гоняться на каждый пуш/PR автоматически.
+**Что сделал:**
+- [x] `.github/workflows/ci.yml`: ruff check + ruff format --check + manage.py check + pytest --cov на python 3.12, без внешних сервисов (SQLite + eager Celery)
+- [x] Коммит + пуш: проверил локально (ruff ok, 64 passed)
+
+**Прогресс:**
+- ✅ [18:10] Создал .github/workflows/ci.yml
+
+**Ошибки:**
+
+**Решения:**
+
+**Результат:** ✅ .github/workflows/ci.yml
